@@ -1,0 +1,571 @@
+@layer components {
+  .markdown {
+    line-height: var(--chat-line-height-article);
+  }
+
+  .markdown a:not(.normal) {
+    color: var(--theme-color);
+    position: relative;
+  }
+  .markdown code {
+    padding: 0.1rem 0.6rem;
+    margin: 0 0.12rem;
+    border-radius: 0.3rem;
+    background-color: var(--background-color-grey-light-1);
+    font-family: var(--font-chat-default);
+    font-size: 0.95em;
+    color: var(--font-color-light-1);
+  }
+
+  .markdown a:not(.normal)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1.2px;
+    display: block;
+    height: 2px;
+    width: 0;
+    background-color: var(--theme-color-light-2);
+    transition: width 0.5s ease;
+  }
+
+  .markdown a:not(.normal):hover::after {
+    width: 100%;
+  }
+
+  .markdown ul {
+    padding-left: 1em;
+    line-height: 1.8em;
+  }
+
+  .markdown ol {
+    padding-left: 1em;
+    line-height: 1.8em;
+  }
+
+  .markdown ul li,
+  .markdown ol li {
+    margin: 0.5em 0;
+  }
+
+  .markdown ul li:has(ul),
+  .markdown ol li:has(ul),
+  .markdown ul li:has(ol),
+  .markdown ol li:has(ol) {
+    margin: 1em 0;
+  }
+
+  .markdown ul ul > li,
+  .markdown ul ol > li,
+  .markdown ol ul > li,
+  .markdown ol ol > li {
+    margin: 0.5em 0;
+  }
+
+  .markdown h1,
+  .markdown h2,
+  .markdown h3,
+  .markdown h4,
+  .markdown h5,
+  .markdown h6 {
+    /* 自身样式可以按需再加 */
+      scroll-margin-top: 6.25rem;
+  }
+
+  .markdown h1::before,
+  .markdown h2::before,
+  .markdown h3::before,
+  .markdown h4::before,
+  .markdown h5::before,
+  .markdown h6::before {
+    content: "#";
+    margin-right: 0.5rem;
+    color: var(--font-color-light-3);
+    transition: color 0.2s ease-in-out;
+  }
+
+  .markdown h1:hover::before,
+  .markdown h2:hover::before,
+  .markdown h3:hover::before,
+  .markdown h4:hover::before,
+  .markdown h5:hover::before,
+  .markdown h6:hover::before {
+    color: var(--theme-color);
+  }
+
+  .markdown img {
+    display: block;
+    margin: 1rem auto;
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  .markdown img:not([no-view]):not(.noview):hover {
+    box-shadow: var(--chat-card-shadow);
+  }
+
+  .markdown .img-caption img {
+    margin: 0 auto;
+  }
+  /* fold start*/
+  details {
+    margin: 2rem 0;
+    border-radius: 0.8rem;
+    box-shadow: var(--meow-box-shadow);
+    transition: all 0.4s ease;
+  }
+
+  details summary {
+    background: var(--background-color-grey-light-2);
+    border-radius: 0.8rem;
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--link-hover-font-color);
+  }
+
+  details[open] {
+    box-shadow: none;
+  }
+
+  details[open] summary {
+    border-radius: 0.8rem 0.8rem 0 0;
+  }
+
+  details:hover summary {
+    color: var(--link-hover-font-color);
+  }
+
+  /* fold 基础样式 */
+  .fold .fold-content {
+    padding: 0.8rem 1.2rem;
+    border-radius: 0 0 0.8rem 0.8rem;
+    animation: show-ease 0.4s ease;
+    border: 1px solid var(--background-color-grey);
+  }
+
+  /* 主题：light */
+  .fold.light summary {
+    color: var(--font-color) !important;
+  }
+
+  .fold.light[open] summary,
+  .fold.light:hover summary {
+    background: var(--background-color-grey-light-1);
+    color: var(--font-color);
+  }
+
+  .fold.light[open] .fold-content,
+  .fold.light:hover .fold-content {
+    border-color: var(--background-color-grey-light-1);
+  }
+
+  /* 主题：pink */
+  .fold.pink summary {
+    background: var(--color-pink-light-2);
+  }
+
+  .fold.pink[open] .fold-content,
+  .fold.pink:hover .fold-content {
+    border-color: var(--color-pink);
+  }
+
+  .fold.pink[open] summary,
+  .fold.pink:hover summary {
+    background: var(--color-pink);
+  }
+
+  /* purple */
+  .fold.purple summary {
+    background: var(--color-purple-light-2);
+  }
+
+  .fold.purple[open] .fold-content,
+  .fold.purple:hover .fold-content {
+    border-color: var(--color-purple);
+  }
+
+  .fold.purple[open] summary,
+  .fold.purple:hover summary {
+    background: var(--color-purple);
+  }
+
+  /* yellow */
+  .fold.yellow summary {
+    background: var(--color-yellow-light-2);
+    color: var(--font-color) !important;
+  }
+
+  .fold.yellow[open] .fold-content,
+  .fold.yellow:hover .fold-content {
+    border-color: var(--color-yellow);
+  }
+
+  .fold.yellow[open] summary,
+  .fold.yellow:hover summary {
+    background: var(--color-yellow);
+  }
+
+  /* blue */
+  .fold.blue summary {
+    background: var(--color-blue-light-2);
+  }
+
+  .fold.blue[open] .fold-content,
+  .fold.blue:hover .fold-content {
+    border: 1px solid var(--color-blue);
+  }
+
+  .fold.blue[open] summary,
+  .fold.blue:hover summary {
+    background: var(--color-blue);
+  }
+
+  /* green */
+  .fold.green summary {
+    background: var(--color-green-light-2);
+  }
+
+  .fold.green[open] .fold-content,
+  .fold.green:hover .fold-content {
+    border-color: var(--color-green);
+  }
+
+  .fold.green[open] summary,
+  .fold.green:hover summary {
+    background: var(--color-green);
+  }
+
+  /* dark mode（你原本写的是 data-mode="dark"，但 next-theme 是 class="dark"） */
+  body.dark details {
+    filter: brightness(90%);
+  }
+
+  body.dark details summary {
+    color: var(--background-color-grey);
+  }
+  /* Fold end */
+
+  /* code block */
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #839496;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+    font-family:
+      Inconsolata, Monaco, Consolas, "Courier New", Courier, monospace;
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  /* line height */
+  pre {
+    overflow-x: auto;
+  }
+
+  /**
+ * 灵感来自 Gatsby Remark Prism
+ * https://www.gatsbyjs.com/plugins/gatsby-remark-prismjs/
+ * 1. 让元素宽度刚好足以容纳其内容。
+ * 2. 始终填充 .code-highlight 中的可见空间。
+ */
+  .code-highlight {
+    float: left; /* 1 */
+    min-width: 100%; /* 2 */
+  }
+
+  .code-line {
+    display: block;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-left: -16px;
+    margin-right: -16px;
+    border-left: 4px solid rgba(0, 0, 0, 0); /* 高亮边框透明占位 */
+  }
+
+  .code-line.inserted {
+    background-color: rgba(16, 185, 129, 0.2); /* 插入行 (+) 颜色 */
+  }
+
+  .code-line.deleted {
+    background-color: rgba(239, 68, 68, 0.2); /* 已删除行 (-) 颜色 */
+  }
+
+  .highlight-line {
+    margin-left: -16px;
+    margin-right: -16px;
+    background-color: rgba(55, 65, 81, 0.5); /* 高亮背景颜色 */
+    border-left: 4px solid rgb(59, 130, 246); /* 高亮边框颜色 */
+  }
+
+  .line-number::before {
+    display: inline-block;
+    width: 1rem;
+    text-align: right;
+    margin-right: 16px;
+    margin-left: -8px;
+    color: rgb(156, 163, 175); /* 行号颜色 */
+    content: attr(line);
+  }
+
+  /* Code blocks */
+  code[class*="language-"],
+  pre[class*="language-"] {
+    font-family:
+      Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono",
+      "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono",
+      "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L",
+      "Courier New", Courier, monospace;
+    font-size: 1.1rem;
+    line-height: 1.375;
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    background: #faf8f5;
+    color: #728fcb;
+  }
+
+  pre > code[class*="language-"] {
+    font-size: 1em;
+  }
+
+  pre[class*="language-"]::-moz-selection,
+  pre[class*="language-"] ::-moz-selection,
+  code[class*="language-"]::-moz-selection,
+  code[class*="language-"] ::-moz-selection {
+    text-shadow: none;
+    background: #faf8f5;
+  }
+
+  pre[class*="language-"]::selection,
+  pre[class*="language-"] ::selection,
+  code[class*="language-"]::selection,
+  code[class*="language-"] ::selection {
+    text-shadow: none;
+    background: #faf8f5;
+  }
+
+  /* Code blocks */
+  pre[class*="language-"] {
+    padding: 1em;
+    margin: 0.5em 0;
+    overflow: auto;
+  }
+
+  /* Inline code */
+  :not(pre) > code[class*="language-"] {
+    padding: 0.1em;
+    border-radius: 0.3em;
+  }
+
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    color: #b6ad9a;
+  }
+
+  .token.punctuation {
+    color: #b6ad9a;
+  }
+
+  .token.namespace {
+    opacity: 0.7;
+  }
+
+  .token.tag,
+  .token.operator,
+  .token.number {
+    color: #063289;
+  }
+
+  .token.property,
+  .token.function {
+    color: #b29762;
+  }
+
+  .token.tag-id,
+  .token.selector,
+  .token.atrule-id {
+    color: #2d2006;
+  }
+
+  code.language-javascript,
+  .token.attr-name {
+    color: #896724;
+  }
+
+  code.language-css,
+  code.language-scss,
+  .token.boolean,
+  .token.string,
+  .token.entity,
+  .token.url,
+  .language-css .token.string,
+  .language-scss .token.string,
+  .style .token.string,
+  .token.attr-value,
+  .token.keyword,
+  .token.control,
+  .token.directive,
+  .token.unit,
+  .token.statement,
+  .token.regex,
+  .token.atrule {
+    color: #728fcb;
+  }
+
+  .token.placeholder,
+  .token.variable {
+    color: #93abdc;
+  }
+
+  .token.deleted {
+    text-decoration: line-through;
+  }
+
+  .token.inserted {
+    border-bottom: 1px dotted #2d2006;
+    text-decoration: none;
+  }
+
+  .token.italic {
+    font-style: italic;
+  }
+
+  .token.important,
+  .token.bold {
+    font-weight: bold;
+  }
+
+  .token.important {
+    color: #896724;
+  }
+
+  .token.entity {
+    cursor: help;
+  }
+
+  pre > code.highlight {
+    outline: 0.4em solid #896724;
+    outline-offset: 0.4em;
+  }
+
+  /* overrides color-values for the Line Numbers plugin
+ * http://prismjs.com/plugins/line-numbers/
+ */
+  .line-numbers.line-numbers .line-numbers-rows {
+    border-right-color: #ece8de;
+  }
+
+  .line-numbers .line-numbers-rows > span:before {
+    color: #cdc4b1;
+  }
+
+  /* overrides color-values for the Line Highlight plugin
+ * http://prismjs.com/plugins/line-highlight/
+ */
+  .line-highlight.line-highlight {
+    background: rgba(45, 32, 6, 0.2);
+    background: -webkit-linear-gradient(
+      left,
+      rgba(45, 32, 6, 0.2) 70%,
+      rgba(45, 32, 6, 0)
+    );
+    background: linear-gradient(
+      to right,
+      rgba(45, 32, 6, 0.2) 70%,
+      rgba(45, 32, 6, 0)
+    );
+  }
+
+  /* macos */
+  html.light .macos-code-frame {
+    --bg: #fafafa;
+    /*--border: rgba(0, 0, 0, 0.08);*/
+    --header-bg: linear-gradient(180deg, #fdfdfd 0%, #f5f5f5 100%);
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  html.dark .macos-code-frame {
+    --bg: #1a1a1a;
+    --border: rgba(255, 255, 255, 0.08);
+    --header-bg: linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .macos-code-frame {
+    position: relative;
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    box-shadow:
+      var(--shadow),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    font-size: 0.875rem;
+  }
+
+  .macos-code-frame .code-header {
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .macos-code-frame .traffic-lights {
+    display: flex;
+    gap: 8px;
+  }
+
+  .macos-code-frame .light {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    /*box-shadow: 0 2px 4px rgba(0,0,0,0.2);*/
+  }
+
+  .macos-code-frame .light.red {
+    background: #ff5f57;
+  }
+  .macos-code-frame .light.yellow {
+    background: #ffbd2e;
+  }
+  .macos-code-frame .light.green {
+    background: #28ca42;
+  }
+
+  .macos-code-frame pre {
+    margin: 0 !important;
+    padding: 16px 20px;
+    background: transparent !important;
+    border: none !important;
+    overflow-x: auto;
+  }
+}

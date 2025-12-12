@@ -1,0 +1,473 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "../styles/markdown.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-waline-theme-color: var(--waline-theme-color);
+  --color-waline-active-color: var(--waline-active-color);
+  --color-waline-badge-color: var(--waline-badge-color);
+  /* */
+  --color-highlight-background: var(--highlight-background);
+  --color-highlight-foreground: var(--highlight-foreground);
+  --color-highlight-comment: var(--highlight-comment);
+  --color-highlight-built-in: var(--highlight-built-in);
+  --color-highlight-keyword: var(--highlight-keyword);
+  --color-highlight-attr: var(--highlight-attr);
+  --color-highlight-section: var(--highlight-section);
+  --color-highlight-bullet: var(--highlight-bullet);
+  --color-highlight-title: var(--highlight-title);
+  --color-highlight-tag: var(--highlight-tag);
+  --color-highlight-subst: var(--highlight-subst);
+  --color-highlight-strong: var(--highlight-strong);
+  --color-highlight-string: var(--highlight-string);
+  --color-highlight-emphasis: var(--highlight-emphasis);
+  --color-highlight-meta: var(--highlight-meta);
+  --color-highlight-marked: var(--highlight-marked);
+  --color-theme-color: var(--theme-color);
+  --color-theme-color-light-1: var(--theme-color-light-1);
+  --color-theme-color-light-2: var(--theme-color-light-2);
+  --color-theme-color-light-3: var(--theme-color-light-3);
+  --color-theme-color-transparent-1: var(--theme-color-transparent-1);
+  --color-theme-color-dark-1: var(--color-theme-color-dark-1);
+  --color-background-color: var(--background-color);
+  --color-background-color-transparent-1: var(--background-color-transparent-1);
+  --color-background-color-transparent-2: var(--background-color-transparent-2);
+  --color-background-color-transparent-3: var(--background-color-transparent-3);
+  --color-background-color-grey: var(--background-color-grey);
+  --color-background-color-grey-light-1: var(--background-color-grey-light-1);
+  --color-background-color-grey-light-2: var(--background-color-grey-light-2);
+  --color-background-color-grey-transparent: var(
+    --background-color-grey-transparent
+  );
+  --color-background-color-grey-transparent-2: var(
+    --background-color-grey-transparent-2
+  );
+  --color-background-color-body: var(--background-color-body);
+  --color-background-color-page: var(--background-color-page);
+  --color-font-color: var(--font-color);
+  --color-font-color-invert: var(--font-color-invert);
+  --color-font-color-navbar: var(--font-color-navbar);
+  --color-font-color-light-1: var(--font-color-light-1);
+  --color-font-color-light-2: var(--font-color-light-2);
+  --color-font-color-light-3: var(--font-color-light-3);
+  --color-link-hover-font-color: var(--link-hover-font-color);
+  --color-banner-font-color: var(--banner-font-color);
+  --color-nav-background-color: var(--nav-background-color);
+  --color-card-border-color: var(--card-border-color);
+  --shadow-chat-box-shadow: var(--chat-box-shadow);
+  --shadow-chat-card-shadow: var(--chat-card-shadow);
+}
+:root {
+  --radius: 0.65rem;
+  --chat-line-height-article: 1.58rem;
+  --chat-page-width: 69rem;
+  --chat-navbar-heigh: 4rem;
+  --waline-theme-color: oklch(0.8208 0.1486 72.1) !important;
+  --waline-active-color: oklch(0.8863 0.096 75.18) !important;
+  --waline-badge-color: oklch(0.8208 0.1486 72.1) !important;
+  /* */
+  --highlight-background: oklch(0.9791 0 0);
+  --highlight-foreground: oklch(0.5088 0.0284 242.76);
+  --highlight-comment: oklch(0.6557 0.023 241.53);
+  --highlight-built-in: oklch(0.7665 0.1154 175.81);
+  --highlight-keyword: oklch(0.6188 0.1744 308.03);
+  --highlight-attr: oklch(0.667 0.1699 44.65);
+  --highlight-section: oklch(0.7234 0.1249 225.87);
+  --highlight-bullet: oklch(0.6533 0.1932 23.86);
+  --highlight-title: oklch(0.7934 0.1568 89.02);
+  --highlight-tag: oklch(0.5543 0.0259 242.2);
+  --highlight-subst: oklch(0.5088 0.0284 242.76);
+  --highlight-strong: oklch(0.7934 0.1568 89.02);
+  --highlight-string: oklch(0.7566 0.1813 134.46);
+  --highlight-emphasis: oklch(0.6188 0.1744 308.03);
+  --highlight-meta: oklch(0.6128 0.2102 347.89);
+  --highlight-marked: oklch(0.8816 0.1032 93.29 / 32.2%);
+  --theme-color: oklch(0.8208 0.1486 72.1);
+  --theme-color-light-1: oklch(0.8863 0.096 75.18);
+  --theme-color-light-2: oklch(0.8524 0.1248 74.21);
+  --theme-color-light-3: oklch(0.87 0.1114 75.4);
+  --theme-color-transparent-1: oklch(0.8208 0.1486 72.1 / 60%);
+  --theme-color-dark-1: oklch(0.7954 0.1639 69.07);
+  --background-color: oklch(1 0 0);
+  --background-color-transparent-1: oklch(1 0 0 / 85%);
+  --background-color-transparent-2: oklch(1 0 0 / 70%);
+  --background-color-transparent-3: oklch(1 0 0 / 40%);
+  --background-color-grey: oklch(0.931 0 0);
+  --background-color-grey-light-1: oklch(0.9581 0 0);
+  --background-color-grey-light-2: oklch(0.9702 0 0);
+  --background-color-grey-transparent: oklch(0.931 0 0 / 25%);
+  --background-color-grey-transparent-2: oklch(0.931 0 0 / 15%);
+  --background-color-body: oklch(0.9791 0 0);
+  --background-color-page: oklch(1 0 0 / 85%);
+  --font-color: oklch(0.3368 0 0);
+  --font-color-invert: oklch(1 0 0);
+  --font-color-navbar: oklch(0.4128 0 0);
+  --font-color-light-1: oklch(0.5555 0 0);
+  --font-color-light-2: oklch(0.6895 0 0);
+  --font-color-light-3: oklch(0.8483 0 0);
+  --link-hover-font-color: oklch(1 0 0);
+  --banner-background: url("https://jumao-zycs-img.pages.dev/v2/RgOhdVI.jpeg");
+  --banner-font-color: oklch(1 0 0);
+  --nav-background-color: oklch(1 0 0 / 18.8%);
+  --card-border-color: oklch(0.8792 0 0);
+  --chat-box-shadow: 1px 1px 1px 1px rgba(42, 42, 42, 0.051);
+  --chat-card-shadow: 0px 3px 8px 6px rgba(42, 42, 42, 0.051);
+  /*
+  --chat-box-shadow-1: 1px 1px 1px 1px oklch(0.285 0 0 / 5.1%);
+  --chat-card-shadow-1: 0px 3px 8px 6px oklch(0.285 0 0 / 5.1%);
+     */
+
+  /* 不区分dark/light */
+  --color-pink-light-2: #ff9d9d;
+  --color-pink: #ff7c7c;
+
+  --color-purple-light-2: #dac6ff;
+  --color-purple: #c2a0ff;
+
+  --color-yellow-light-2: #ffe997;
+  --color-yellow: #ffdf6a;
+
+  --color-blue-light-2: #a5d2ff;
+  --color-blue: #7fbfff;
+
+  --color-green-light-2: #a5e49a;
+  --color-green: #7ed86e;
+}
+.dark {
+  --waline-bg-color: oklch(0.2972 0 0 / 70%);
+  --waline-color: oklch(0.8039 0.0111 286.15);
+  --waline-theme-color: oklch(0.7857 0.0869 243.42);
+  --waline-active-color: oklch(0.8701 0.0514 243);
+  --waline-badge-color: oklch(0.7857 0.0869 243.42);
+  --waline-info-color: oklch(0.6053 0.024 285.66);
+  --waline-info-bg-color: oklch(0.3368 0 0);
+  --highlight-background: oklch(0.2972 0 0);
+  --highlight-foreground: oklch(0.8452 0 0);
+  --highlight-comment: oklch(0.683 0 0);
+  --highlight-built-in: oklch(0.7845 0.0952 195.39);
+  --highlight-keyword: oklch(0.7475 0.0914 326.44);
+  --highlight-attr: oklch(0.7562 0.1455 48.5);
+  --highlight-section: oklch(0.6676 0.0939 249.39);
+  --highlight-bullet: oklch(0.7126 0.1515 20.16);
+  --highlight-title: oklch(0.8707 0.1325 82.74);
+  --highlight-tag: oklch(0.7762 0.0054 145.52);
+  --highlight-subst: oklch(0.8452 0 0);
+  --highlight-strong: oklch(0.8707 0.1325 82.74);
+  --highlight-string: oklch(0.796 0.0889 144.68);
+  --highlight-emphasis: oklch(0.7475 0.0914 326.44);
+  --highlight-meta: oklch(0.5774 0.0796 34.02);
+  --highlight-marked: oklch(0.7249 0.0845 266.77 / 27.1%);
+  --theme-color: oklch(0.7857 0.0869 243.42);
+  --theme-color-light-1: oklch(0.8701 0.0514 243);
+  --theme-color-light-2: oklch(0.8288 0.0695 242.79);
+  --theme-color-light-3: oklch(0.8492 0.0599 242.39);
+  --theme-color-transparent-1: oklch(0.7857 0.0869 243.42 / 60%);
+  --theme-color-dark-1: oklch(0.7302 0.1099 244.34);
+  --background-color: oklch(0.2972 0 0);
+  --background-color-transparent-1: oklch(0.2972 0 0 / 88%);
+  --background-color-transparent-2: oklch(0.2972 0 0 / 70%);
+  --background-color-transparent-3: oklch(0.2972 0 0 / 40%);
+  --background-color-grey: oklch(0.3904 0 0);
+  --background-color-grey-light-1: oklch(0.3639 0 0);
+  --background-color-grey-light-2: oklch(0.3368 0 0);
+  --background-color-grey-transparent: oklch(0.3904 0 0 / 25%);
+  --background-color-grey-transparent-2: oklch(0.3904 0 0 / 35%);
+  --background-color-body: oklch(0.2479 0.0058 271.18);
+  --background-color-page-1: oklch(0.2972 0 0 / 70%);
+  --background-color-page: rgba(45, 45, 45, 0.7);
+  --font-color: oklch(0.8039 0.0111 286.15);
+  --font-color-invert: oklch(0.9911 0 0);
+  --font-color-navbar: oklch(0.8039 0.0111 286.15);
+  --font-color-light-1: oklch(0.674 0.019 285.88);
+  --font-color-light-2: oklch(0.6053 0.024 285.66);
+  --font-color-light-3: oklch(0.4755 0.0192 285.65);
+  --link-hover-font-color: oklch(0.2972 0 0);
+  /*--banner-background: url("https://jumao-zycs-img.pages.dev/v2/wJoQOZN.jpeg");*/
+  --banner-font-color: oklch(0.9067 0 0);
+  --nav-background-color: transparent;
+  --nav-background-color-1: oklch(0 0 0 / 0%);
+  --card-border-color: oklch(0.3523 0 0);
+  --chat-box-shadow: 1px 1px 1px 1px rgba(187, 187, 187, 0.012);
+  --chat-box-shadow-1: 1px 1px 1px 1px oklch(0.7921 0 0 / 1.2%);
+  --chat-card-shadow: none;
+}
+@font-face {
+  font-family: "LXGWWenKai";
+  src: url("/font/LXGWWenKai-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "VivoSansSCVF";
+  src: url("/font/vivoSansSCVF.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --breakpoint-sm: 25rem; /* 400 */
+  --breakpoint-md: 37.5rem; /* 600 */
+  --breakpoint-lg: 56.25rem; /* 900 */
+  --breakpoint-xl: 87.5rem; /* 1400 */
+
+  --container-sm: 25rem; /* 400 */
+  --container-md: 37.5rem; /* 600 */
+  --container-lg: 56.25rem; /* 900 */
+  --container-xl: 87.5rem; /* 1400 */
+
+  --text-shadow-chat: 2px 2px 1.5px rgba(0, 0, 0, 0.25);
+
+  --font-chat-default:
+    /* 1. 优先使用你的自定义字体集 (需引入) */
+    "VivoSansSCVF", /* 2. 系统默认界面字体 (主要渲染英文和符号) */ system-ui,
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    /* 3. 系统默认中文字体 (确保中文回退) */ "Microsoft YaHei", "PingFang SC",
+    "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji",
+    "Hiragino Sans GB", /* 4. 通用后备字体 */ sans-serif;
+
+  --font-chat-lxgw-default:
+    "LXGWWenKai", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Microsoft YaHei", "PingFang SC", "Apple Color Emoji",
+    "Segoe UI Emoji", "Noto Color Emoji", "Hiragino Sans GB", sans-serif;
+  --font-chat-lxgwwk: "LXGWWenKai";
+}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    user-select: auto;
+  }
+
+  /*
+  a {
+    text-decoration: none;
+    color: var(--theme-color);
+  }
+*/
+  ul,
+  ol {
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+  }
+
+  ul ul,
+  ul ol,
+  ol ul,
+  ol ol {
+    margin: 0;
+  }
+
+  /*
+      ul:has(input[type="checkbox"]) {
+        padding-left: 0;
+      }
+
+      ul:has(input[type="checkbox"]) li {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      ul li input[type="checkbox"]:disabled {
+        appearance: none;
+        width: 1.6rem;
+        height: 1.5rem;
+        border-radius: 0.3rem;
+        margin: 0;
+        background-color: var(--background-color-grey-light-1);
+      }
+
+      ul li input[type="checkbox"]:checked {
+        background-color: var(--theme-color);
+      }
+
+      ul li input[type="checkbox"]:checked::after {
+        content: "✓";
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        color: var(--font-color-invert);
+        font-weight: bold;
+        text-align: center;
+      }
+    */
+  ul:has(input[type="checkbox"]) {
+    padding-left: 0;
+  }
+
+  ul:has(input[type="checkbox"]) li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  ul li input[type="checkbox"]:disabled {
+    appearance: none;
+    width: 1.6em;
+    height: 1.5em;
+    border-radius: 0.3rem;
+    margin: 0;
+    background-color: var(--background-color-grey-light-1);
+  }
+
+  ul li input[type="checkbox"]:disabled:checked {
+    background-color: var(--theme-color);
+  }
+
+  ul li input[type="checkbox"]:disabled:checked::after {
+    content: "✓";
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    color: var(--font-color-invert);
+    font-weight: bold;
+    text-align: center;
+  }
+  blockquote {
+    margin: 2rem 0;
+    padding: 0.2rem 0.9rem;
+    border-left: 0.5rem solid var(--font-color-light-3);
+    background-color: var(--background-color-grey-transparent);
+    border-radius: 0.25rem;
+    box-shadow: var(--chat-box-shadow);
+    line-height: 1.5;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 1.35rem;
+  }
+  h4 {
+    font-size: 1.2rem;
+  }
+  h5 {
+    font-size: 1.1rem;
+  }
+  h6 {
+    font-size: 1rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 2.45rem 0 1.35rem;
+  }
+
+  hr {
+    margin: 3rem 0;
+    border: 2px dashed var(--background-color-grey);
+    position: relative;
+    overflow: visible;
+  }
+  /*
+  p {
+    text-align: justify;
+    vertical-align: baseline;
+  }
+*/
+  mark {
+    background-color: var(--theme-color);
+    color: var(--font-color-invert);
+    padding: 0 0.3rem;
+    border-radius: 0.3rem;
+  }
+
+  ins {
+    text-decoration-color: var(--font-color-light-2);
+  }
+
+  s {
+    color: var(--font-color-light-1);
+  }
+
+  abbr {
+    text-decoration-color: var(--font-color-light-2);
+  }
+
+  kbd {
+    padding: 0.1em 0.4rem;
+    margin: 0 0.12rem;
+    border: 1px solid var(--background-color-grey);
+    border-radius: 0.4rem;
+    background-color: var(--background-color-grey-light-1);
+    font-family: var(--font-chat-default);
+    font-size: 0.9em;
+  }
+
+  table {
+    border-radius: 0.8rem;
+    border-collapse: collapse;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: var(--chat-box-shadow);
+  }
+
+  table ul,
+  table ol {
+    line-height: normal;
+    margin: 0;
+  }
+
+  th,
+  td {
+    padding: 0.5rem 0.8rem;
+    border: 1px solid var(--background-color-grey);
+  }
+
+  thead {
+    background-color: var(--background-color-grey-light-2);
+    white-space: nowrap;
+  }
+
+  button {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    font-family: var(--font-chat-default);
+    color: var(--font-color);
+    font-size: 1rem;
+  }
+
+  textarea,
+  input {
+    font-family: var(--font-chat-default);
+  }
+}
+@layer components {
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin: 2rem 0;
+  }
+}
+hr::before {
+  content: "🐈";
+  position: absolute;
+  top: -0.5rem;
+  left: 5%;
+  font-size: 1rem;
+  line-height: 1rem;
+  color: var(--background-color-grey);
+  z-index: 10;
+  opacity: 0.7;
+  transition: all 1s ease-in-out;
+}
+
+hr:hover::before {
+  left: 90%;
+}
