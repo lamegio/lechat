@@ -1,23 +1,24 @@
 import remarkGfm from "remark-gfm";
-import { rehype } from "rehype";
+import {rehype} from "rehype";
 import rehypePrism from "rehype-prism-plus";
 import remarkDirective from "remark-directive";
-import { visitParents } from "unist-util-visit-parents";
+import {visitParents} from "unist-util-visit-parents";
 import remarkFold from "@/lib/remarkFold";
-import { testRemarkDirectivePlugin } from "@/lib/testVisitPlugin";
+import {testRemarkDirectivePlugin} from "@/lib/testVisitPlugin";
 import remarkParse from "remark-parse";
-import { unified } from "unified";
+import {unified} from "unified";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import rehypeToc from "@/lib/rehypeToc";
 import rehypeSlug from "rehype-slug";
+import { Root } from 'hast';
+import {TocItem} from "@/components/features/article/sidebar/Toc";
 
 export default async function renderMarkdown(content: string) {
   const processedContent = await unified()
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkDirective)
-    .use(testRemarkDirectivePlugin)
     .use(remarkFold)
     .use(remarkRehype)
     .use(rehypeStringify)
@@ -32,12 +33,12 @@ export default async function renderMarkdown(content: string) {
     .process(processedContent);
   return {
     html: processedContentRes.toString(),
-    toc: processedContentRes.data.toc,
+    toc: processedContentRes.data.toc as TocItem[],
   };
 }
 
 function rehypeMacOsCodeBlock() {
-  return (tree: any) => {
+  return (tree: Root) => {
     visitParents(tree, "element", (node, ancestors) => {
       if (node.tagName !== "pre") return;
 
@@ -47,24 +48,24 @@ function rehypeMacOsCodeBlock() {
       const index = parent.children.indexOf(node);
       if (index === -1) return;
 
-      const frame = {
+      parent.children[index] = {
         type: "element",
         tagName: "div",
-        properties: { className: ["macos-code-frame"] },
+        properties: {className: ["macos-code-frame"]},
         children: [
           {
             type: "element",
             tagName: "div",
-            properties: { className: ["code-header"] },
+            properties: {className: ["code-header"]},
             children: [
               {
                 type: "element",
                 tagName: "div",
-                properties: { className: ["traffic-lights"] },
+                properties: {className: ["traffic-lights"]},
                 children: ["red", "yellow", "green"].map((color) => ({
                   type: "element",
                   tagName: "span",
-                  properties: { className: ["light", color] },
+                  properties: {className: ["light", color]},
                   children: [],
                 })),
               },
@@ -73,8 +74,6 @@ function rehypeMacOsCodeBlock() {
           node, // 原来的 <pre>
         ],
       };
-
-      parent.children[index] = frame;
     });
   };
 }

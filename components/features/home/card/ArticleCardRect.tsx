@@ -1,15 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronsRight, FolderOpen, PencilLine, Tags } from "lucide-react";
+import {formatLocalDate} from "@/lib/date";
 
 export default function ArticleCardRect({ article }: { article: any }) {
   return (
     <div className="bg-background-color-transparent-1 hover:scale-[1.01] duration-200 h-auto transition-all ease-in-out backdrop-blur-sm shadow-chat-card-shadow overflow-hidden rounded-2xl flex flex-col justify-start">
-      {article?.cover && (
+      {article?.coverImage && (
         <div className="w-full h-36  relative bg-red-300 overflow-hidden">
           <Image
             alt="article cover image"
-            src={article.cover}
+            src={article.coverImage}
             loading="eager"
             fill
             sizes="cover"
@@ -19,7 +20,7 @@ export default function ArticleCardRect({ article }: { article: any }) {
       )}
       <div className="h-auto py-6 px-9">
         <div>
-          {article.pin ? (
+          {article.isFeatured ? (
             <p className="inline mr-2 rounded-md bg-theme-color p-2 h-8 text-link-hover-font-color whitespace-nowrap">
               置顶
             </p>
@@ -31,27 +32,28 @@ export default function ArticleCardRect({ article }: { article: any }) {
             {article.title}
           </Link>
           <div className="text-justify text-lg my-[0.9rem] line-clamp-3">
-            {article.expert}
+            {article.excerpt}
           </div>
           <div className="text-font-color-light-1 flex items-center justify-between text-[0.95rem] gap-[0.5rem]">
             <div className="flex justify-start gap-x-3.5">
               <div className="flex items-center flex-nowrap overflow-hidden">
                 <PencilLine size={16} className="mr-1" />
-                <span className="whitespace-nowrap">{article.publishedAt}</span>
+                <span className="whitespace-nowrap">{formatLocalDate(article.publishedAt)}</span>
               </div>
+              { article.categories[0] &&
               <div className="flex items-center flex-nowrap overflow-hidden">
                 <FolderOpen size={16} className="mr-1" />
                 <Link
-                  href={`/category/${article.category.slug}`}
+                  href={`/category/${article.categories[0].slug}`}
                   className="whitespace-nowrap hover:text-theme-color"
                 >
-                  {article.category.name}
+                  {article.categories[0].name}
                 </Link>
-              </div>
-              {article.Tag ? (
+              </div> }
+              {article.tags ? (
                 <div className="flex items-center flex-nowrap overflow-hidden">
                   <Tags size={16} className="mr-1" />
-                  {article.Tag.map((item, index) => (
+                  {article.tags.map((item: {id: string, name: string, slug: string}, index: number) => (
                     <div key={item.name}>
                       {index > 0 && <span className="mx-1">|</span>}
                       <Link
