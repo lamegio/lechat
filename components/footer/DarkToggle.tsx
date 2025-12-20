@@ -71,8 +71,8 @@ export function FooterMobileDarkToggle() {
           onClick={() => handleThemeChange("system")}
           className={`p-2.5 rounded-md transition-all ${
             theme === "system"
-              ? "bg-font-color bg-opacity-10 text-font-color"
-              : "text-font-color opacity-50 hover:opacity-70"
+              ? "opacity-100 bg-opacity-10 text-font-color"
+              : "text-font-color opacity-50 hover:opacity-100"
           }`}
           aria-label="System theme"
         >
@@ -82,8 +82,8 @@ export function FooterMobileDarkToggle() {
           onClick={() => handleThemeChange("light")}
           className={`p-2.5 rounded-md transition-all ${
             theme === "light"
-              ? "bg-font-color bg-opacity-10 text-font-color"
-              : "text-font-color opacity-50 hover:opacity-70"
+              ? "opacity-100 bg-opacity-10 text-font-color"
+              : "text-font-color opacity-50 hover:opacity-100"
           }`}
           aria-label="Light theme"
         >
@@ -93,8 +93,8 @@ export function FooterMobileDarkToggle() {
           onClick={() => handleThemeChange("dark")}
           className={`p-2.5 rounded-md transition-all ${
             theme === "dark"
-              ? "bg-font-color bg-opacity-10 text-font-color"
-              : "text-font-color opacity-50 hover:opacity-70"
+              ? "opacity-100 bg-opacity-10 text-font-color"
+              : "text-font-color opacity-50 hover:opacity-100"
           }`}
           aria-label="Dark theme"
         >

@@ -7,7 +7,7 @@ export default async function About() {
   const { html, toc } = await renderMarkdown(aboutContent);
 
   return (
-    <BaseContainer>
+    <BaseContainer pageTitle="关于" pageDescription="喵喵庙...">
       <PageContentContainer>
         <div dangerouslySetInnerHTML={{ __html: html }}></div>
       </PageContentContainer>
@@ -16,7 +16,8 @@ export default async function About() {
 }
 
 function getAboutContent(): string {
-  const aboutContent = `
+
+  return `
 
 # 一级标题 H1
 
@@ -258,5 +259,4 @@ pnpm dev
 
 > “优秀的排版可以大幅提升文章的可读性和专业感。”
   `;
-  return aboutContent;
 }

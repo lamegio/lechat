@@ -154,27 +154,10 @@ export default function Footer() {
         </div>
 
         {/* 移动端：上下堆叠 */}
-        <div className="flex xl:hidden flex-col gap-8">
-          {/* 头像和站点名 */}
-          <div className="flex items-center gap-3">
-            <Image
-              src={footerInfo.avatar}
-              alt={footerInfo.siteName}
-              width={56}
-              height={56}
-              className="rounded-xl object-cover"
-            />
-            <span className="text-xl font-medium text-font-color">
-              {footerInfo.siteName}
-            </span>
-          </div>
-
+        <div className="flex xl:hidden flex-col gap-3">
           {/* 快速访问 */}
           <div className="flex flex-col gap-3">
-            <h3 className="text-base font-semibold text-font-color">
-              快速访问
-            </h3>
-            <div className="flex flex-wrap gap-5">
+            <div className="flex flex-wrap gap-5 mx-auto">
               {footerInfo.quickLinks.map((link) => (
                 <Link
                   key={link.label}
@@ -187,8 +170,14 @@ export default function Footer() {
             </div>
           </div>
 
+          <Link
+            href={footerInfo.rss}
+            className="text-font-color opacity-70 hover:opacity-100 mx-auto transition-opacity"
+          >
+            RSS 订阅
+          </Link>
           {/* 社交媒体 */}
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-5 mx-auto">
             {footerInfo.social.map((item, index) => (
               <React.Fragment key={item.name}>
                 <Link
@@ -204,27 +193,19 @@ export default function Footer() {
             ))}
           </div>
 
+          {/* 主题切换器 */}
+          <FooterMobileDarkToggle />
+
           {/* RSS和备案 */}
-          <div className="flex flex-col gap-3 text-base">
-            <Link
-              href={footerInfo.rss}
-              className="text-font-color opacity-70 hover:opacity-100 transition-opacity"
-            >
-              RSS 订阅
-            </Link>
             <Link
               href={footerInfo.icpLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-font-color opacity-70 hover:opacity-100 transition-opacity flex items-center gap-2"
+              className="mx-auto text-font-color opacity-70 hover:opacity-100 transition-opacity flex items-center gap-2"
             >
               <GiCat size={18} />
               <span>{footerInfo.icp}</span>
             </Link>
-          </div>
-
-          {/* 主题切换器 */}
-          <FooterMobileDarkToggle />
 
           {/* Powered by 和 Copyright */}
           <div className="flex flex-col gap-2 text-sm text-font-color opacity-60 text-center">

@@ -2,6 +2,7 @@ import HomeSideBarProfile from "@/components/features/home/HomeSideBarProfile";
 import HomeSideBarAnnouncement from "@/components/features/home/HomeSideBarAnnouncement";
 import HomeSideBarCategories from "@/components/features/home/HomeSideBarCategories";
 import HomeSideBarTags from "@/components/features/home/HomeSideBarTags";
+import HomeSideBarRecentPosts from "@/components/features/home/HomeSideBarRecentPosts";
 
 export default function HomeSideBar() {
   return (
