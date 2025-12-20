@@ -1,268 +1,163 @@
-/**
- * 前端配置类型定义
- * 路径：frontend/types/config/config-types.ts
- *
- * 注意：修改此文件时，需同步更新后端文档
- * backend/modules/config/docs/CONFIG_TYPES.md
- */
+// types/siteConfig.ts
 
 // ==================== 基础类型 ====================
 
+export interface SocialLink {
+  name: string;
+  type: string;
+  href: string;
+  enabled: boolean;
+  order: number;
+}
+
+export interface QuickLink {
+  href: string;
+  label: string;
+}
+
+export interface NavigationMenu {
+  icon: string;
+  name: string;
+  path: string;
+  order: number;
+}
+
+export interface Stat {
+  name: string;
+  stat: number;
+  href: string;
+}
+
+// ==================== 核心配置类型 ====================
+
 /**
- * 主题图片配置（支持明暗主题）
+ * 站点信息配置（包含站长信息和社交链接）
  */
-export interface ThemedImage {
+export interface SiteInfoConfig {
+  // 网站基础
+  title: string;
+  subtitle: string;
+  description: string;
+  logo: string;
+  favicon: string;
+  author: string;
+  locale: string;
+  timezone: string;
+
+  // 站长个人
+  nickname: string;
+  bio: string;
+  avatar: string;
+  statusEmoji: string;
+  statusText: string;
+
+  // 社交链接
+  social: SocialLink[];
+
+  stat: Stat[];
+}
+
+/**
+ * 页脚配置
+ */
+export interface SiteFooterConfig {
+  copyright: string;
+  startYear: number;
+  showPoweredBy: boolean;
+  quickLinks: QuickLink[];
+  moeIcp?: string;
+  moeIcpIconLink?: string;
+}
+
+/**
+ * 背景配置
+ */
+export interface SiteBackgroundConfig {
+  enabled: boolean;
   light: string;
   dark: string;
 }
 
 /**
- * 社交平台配置（泛型）
+ * 导航配置
  */
-export interface SocialPlatform {
-  enabled: boolean;
-  username?: string;
-  url: string;
-  display: string;
+export interface SiteNavigationConfig {
+  menus: NavigationMenu[];
 }
 
-/**
- * 自定义链接
- */
-export interface CustomLink {
-  text: string;
-  url: string;
-  newTab: boolean;
-}
+// ==================== 其他配置类型 ====================
 
-/**
- * 导航菜单项
- */
-export interface NavigationMenuItem {
-  name: string;
-  path: string;
-  icon: string;
-  order: number;
-}
-
-// ==================== 配置项类型 ====================
-
-/**
- * 网站基础配置
- * key: site.basic
- */
-export interface SiteBasicConfig {
-  title: string;
-  subtitle: string;
-  description: string;
-  author: string;
-  logo: string;
-  favicon: string;
-  moeIcpCode: string;
-  moeIcpIconLink: string;
-  locale: string;
-  timezone: string;
-}
-
-/**
- * SEO 配置
- * key: site.seo
- */
 export interface SiteSeoConfig {
-  keywords: string[];
   author: string;
-  ogImage: string;
-  twitterCard: string;
   robots: string;
-  googleSiteVerification: string;
-  baiduSiteVerification: string;
+  ogImage: string;
+  keywords: string[];
+  description: string;
+  twitterCard: string;
   canonicalUrl: string;
+  baiduSiteVerification?: string;
+  googleSiteVerification?: string;
 }
 
-/**
- * 社交媒体配置
- * key: site.social
- */
-export interface SiteSocialConfig {
-  github: SocialPlatform;
-  email: SocialPlatform & { address?: string };
-  telegram: SocialPlatform;
-}
-
-/**
- * 评论系统配置
- * key: site.comment
- */
 export interface SiteCommentConfig {
   enabled: boolean;
   provider: string;
-  requireLogin: boolean;
-  requireApproval: boolean;
-  allowAnonymous: boolean;
   maxLength: number;
-  allowMarkdown: boolean;
-  notifyOnNewComment: boolean;
-  notifyEmail: string;
-  allowedDomains: string[];
-  blockedWords: string[];
   rateLimit: {
     enabled: boolean;
-    maxCommentsPerHour: number;
     maxCommentsPerDay: number;
+    maxCommentsPerHour: number;
   };
+  notifyEmail: string;
+  blockedWords: string[];
+  requireLogin: boolean;
+  allowMarkdown: boolean;
+  allowAnonymous: boolean;
+  allowedDomains: string[];
+  requireApproval: boolean;
+  notifyOnNewComment: boolean;
 }
 
-/**
- * 文章展示配置
- * key: site.article
- */
 export interface SiteArticleConfig {
-  postsPerPage: number;
+  defaultCover: string;
+  imageQuality: number;
   excerptLength: number;
-  showTableOfContents: boolean;
-  showReadingTime: boolean;
   showWordCount: boolean;
+  articlePerPage: number;
+  enableLazyLoad: boolean;
+  showReadingTime: boolean;
   showLastModified: boolean;
   relatedPostsCount: number;
-  enableLazyLoad: boolean;
-  imageQuality: number;
-  defaultCover: string;
+  showTableOfContents: boolean;
 }
 
-/**
- * 网站功能配置
- * key: site.feature
- */
 export interface SiteFeatureConfig {
-  enableSearch: boolean;
-  enableRss: boolean;
-  enableSitemap: boolean;
-  enableArchive: boolean;
-  enableTagCloud: boolean;
-  enableDarkMode: boolean;
-  defaultTheme: "light" | "dark" | "auto";
-  enableCodeHighlight: boolean;
   codeTheme: string;
+  enableRss: boolean;
+  defaultTheme: string;
+  enableSearch: boolean;
+  enableArchive: boolean;
   enableMathJax: boolean;
   enableMermaid: boolean;
+  enableSitemap: boolean;
+  enableDarkMode: boolean;
+  enableTagCloud: boolean;
+  enableCodeHighlight: boolean;
 }
 
-/**
- * 页脚配置
- * key: site.footer
- */
-export interface SiteFooterConfig {
-  copyright: string;
-  icpNumber: string;
-  startYear: number;
-  showPoweredBy: boolean;
-  customLinks: CustomLink[];
+// ==================== 顶层配置组 ====================
+
+export interface SiteConfig {
+  info: SiteInfoConfig;
+  footer: SiteFooterConfig;
+  background: SiteBackgroundConfig;
+  navigation: SiteNavigationConfig;
 }
 
-/**
- * 导航菜单配置
- * key: site.navigation
- */
-export interface SiteNavigationConfig {
-  menus: NavigationMenuItem[];
-}
-
-/**
- * 首页横幅配置
- * key: site.banner
- */
-export interface SiteBannerConfig {
-  enabled: boolean;
-  title: string;
-  subtitle: string;
-  description: string;
-  backgroundImage: ThemedImage;
-  backgroundType: "image" | "gradient" | "video";
-  overlay: boolean;
-  overlayOpacity: number;
-}
-
-/**
- * 首页背景配置
- * key: site.background
- */
-export interface SiteBackgroundConfig {
-  enabled: boolean;
-  image: ThemedImage;
-  fixed: boolean;
-  opacity: number;
-}
-
-// ==================== 响应类型 ====================
-
-/**
- * 单个配置项响应（管理端）
- */
-export interface ConfigResponse {
-  id: string;
-  key: string;
-  value: Record<string, unknown>;
-  category: string;
-  isPublic: boolean;
-  updatedAt: string;
-}
-
-/**
- * 配置列表响应（管理端）
- */
-export interface ConfigListResponse {
-  data: ConfigResponse[];
-  total: number;
-  page: number;
-  pageSize: number;
-}
-
-/**
- * 公开配置分组响应（前台）
- */
 export interface PublicConfigGroup {
-  site: {
-    basic: SiteBasicConfig;
-    seo: SiteSeoConfig;
-    footer: SiteFooterConfig;
-    navigation: SiteNavigationConfig;
-    banner: SiteBannerConfig;
-    background: SiteBackgroundConfig;
-  };
-  social: SiteSocialConfig;
-  comment: SiteCommentConfig;
-  article: SiteArticleConfig;
-  feature: SiteFeatureConfig;
-}
-
-// ==================== 类型守卫（可选） ====================
-
-/**
- * 检查是否为有效的主题图片配置
- */
-export function isThemedImage(value: unknown): value is ThemedImage {
-  return (
-    typeof value === "object" &&
-    value !== null &&
-    "light" in value &&
-    "dark" in value &&
-    typeof (value as ThemedImage).light === "string" &&
-    typeof (value as ThemedImage).dark === "string"
-  );
-}
-
-/**
- * 检查是否为有效的社交平台配置
- */
-export function isSocialPlatform(value: unknown): value is SocialPlatform {
-  return (
-    typeof value === "object" &&
-    value !== null &&
-    "enabled" in value &&
-    "url" in value &&
-    "display" in value &&
-    typeof (value as SocialPlatform).enabled === "boolean" &&
-    typeof (value as SocialPlatform).url === "string" &&
-    typeof (value as SocialPlatform).display === "string"
-  );
+  site: SiteConfig;
+  seo?: SiteSeoConfig;
+  comment?: SiteCommentConfig;
+  article?: SiteArticleConfig;
+  feature?: SiteFeatureConfig;
 }

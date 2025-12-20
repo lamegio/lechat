@@ -15,7 +15,7 @@ export default function ModeToggle() {
   const handleLight = useCallback(() => setTheme("light"), [setTheme]);
   if (!mounted || !resolvedTheme) return null;
   return (
-    <>
+    <div className="hidden lg:block">
       {showScrollTop && (
         <div className="fixed bottom-6 right-4 flex flex-col gap-3 z-50 pointer-events-auto">
           {/* 主题切换按钮 */}
@@ -35,6 +35,6 @@ export default function ModeToggle() {
           </ToggleButton>
         </div>
       )}
-    </>
+    </div>
   );
 }

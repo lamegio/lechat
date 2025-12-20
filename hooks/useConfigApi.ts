@@ -1,17 +1,16 @@
+// hooks/useConfig.ts
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 import { API_KEYS } from "@/lib/api-keys";
 import type {
   PublicConfigGroup,
-  SiteBasicConfig,
+  SiteInfoConfig,
   SiteSeoConfig,
-  SiteSocialConfig,
   SiteCommentConfig,
   SiteArticleConfig,
   SiteFeatureConfig,
   SiteFooterConfig,
   SiteNavigationConfig,
-  SiteBannerConfig,
   SiteBackgroundConfig,
 } from "@/types/siteConfig";
 
@@ -45,11 +44,11 @@ export function useConfig(category?: string): UseConfigReturn {
 }
 
 /**
- * 获取网站基础配置
+ * 获取网站信息配置（包含站长信息和社交链接）
  */
-export function useSiteBasic(): SiteBasicConfig | undefined {
+export function useSiteInfo(): SiteInfoConfig | undefined {
   const { config } = useConfig();
-  return config?.site?.basic;
+  return config?.site?.info;
 }
 
 /**
@@ -57,15 +56,7 @@ export function useSiteBasic(): SiteBasicConfig | undefined {
  */
 export function useSiteSeo(): SiteSeoConfig | undefined {
   const { config } = useConfig();
-  return config?.site?.seo;
-}
-
-/**
- * 获取社交媒体配置
- */
-export function useSiteSocial(): SiteSocialConfig | undefined {
-  const { config } = useConfig();
-  return config?.social;
+  return config?.seo;
 }
 
 /**
@@ -106,14 +97,6 @@ export function useSiteFooter(): SiteFooterConfig | undefined {
 export function useSiteNavigation(): SiteNavigationConfig | undefined {
   const { config } = useConfig();
   return config?.site?.navigation;
-}
-
-/**
- * 获取横幅配置
- */
-export function useSiteBanner(): SiteBannerConfig | undefined {
-  const { config } = useConfig();
-  return config?.site?.banner;
 }
 
 /**

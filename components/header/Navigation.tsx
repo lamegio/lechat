@@ -64,7 +64,7 @@ export default function Navigation() {
       path: "/link",
       icon: FiLink,
       subMenu: [
-        { id: 31, name: "友情链接", path: "/link/friends", icon: FiHeart },
+        { id: 31, name: "友情链接", path: "/friend", icon: FiHeart },
       ],
     },
     {

@@ -33,7 +33,7 @@ export default async function ArticleDetail({
   const { html, toc } = await renderMarkdown(article.content);
   return (
     <BaseContainer size="wide">
-      <PageContentContainer>
+      <PageContentContainer withMarkdown={true}>
         <article className="text-center">
           <h1 className="before:content-none m-0">{article.title}</h1>
           <p className="text-xl mt-7 mb-4">

@@ -25,7 +25,7 @@ export default function FixedFullScreenBackground() {
   if (!isMounted || !resolvedTheme) return null;
 
   const bgImageUrl =
-    resolvedTheme === "dark" ? siteBackground?.image.dark : siteBackground?.image.light;
+    resolvedTheme === "dark" ? siteBackground?.dark : siteBackground?.light;
 
   // 滚动阈值：300px 开始模糊，800px 达到最大模糊
   const blurStart = 300;

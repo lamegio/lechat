@@ -117,13 +117,13 @@ export default function ArchivePage() {
       <PageContentContainer>
         <div className="relative pb-12">
           {/* 中央时间线 */}
-          <div className="absolute left-1/2 top-0 bottom-12 w-px bg-gray-300 dark:bg-gray-600 transform -translate-x-1/2" />
+          <div className="absolute left-1/2 top-0 bottom-12 w-0.5 bg-gray-300 dark:bg-gray-600 transform -translate-x-1/2" />
 
           {/* 时间线底部端点 */}
           <div className="absolute left-1/2 bottom-0 transform -translate-x-1/2 w-3 h-3 rounded-full bg-gray-400 dark:bg-gray-500" />
 
           <div className="space-y-16">
-            {years.map((year, yearIndex) => {
+            {years.map((year) => {
               const months = Object.keys(archiveData[year]);
               const yearTotal = Object.values(archiveData[year]).flat().length;
               let articleIndex = 0;
@@ -132,13 +132,11 @@ export default function ArchivePage() {
                 <div key={year} className="relative">
                   {/* 年份节点 */}
                   <div className="relative flex justify-center mb-12">
-                    <div className="relative z-10 flex items-center gap-4 px-6 py-3 bg-white dark:bg-gray-800 rounded-full shadow-md border border-gray-200 dark:border-gray-700">
-                      <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-900 dark:bg-gray-100">
-                        <span className="text-lg font-bold text-white dark:text-gray-900">
-                          {year}
-                        </span>
-                      </div>
-                      <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <div className="relative z-10 flex items-center gap-3 px-8 py-4 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
+                      <span className="text-3xl font-bold text-gray-900 dark:text-white">
+                        {year}
+                      </span>
+                      <span className="text-base text-gray-500 dark:text-gray-400">
                         {yearTotal} 篇
                       </span>
                     </div>
@@ -152,7 +150,7 @@ export default function ArchivePage() {
                       <div key={month} className="relative mb-12">
                         {/* 月份标签 */}
                         <div className="absolute left-1/2 top-0 transform -translate-x-1/2 z-10">
-                          <div className="px-4 py-1.5 bg-gray-100 dark:bg-gray-700 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600">
+                          <div className="px-5 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-base font-semibold text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600">
                             {monthNames[month]}
                           </div>
                         </div>
@@ -199,14 +197,14 @@ export default function ArchivePage() {
                                       className={`p-5 ${article.cover ? "text-white" : ""}`}
                                     >
                                       <h3
-                                        className={`text-base font-medium mb-2 line-clamp-2 ${article.cover ? "text-white" : "text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400"} transition-colors`}
+                                        className={`text-lg font-semibold mb-2 line-clamp-2 ${article.cover ? "text-white" : "text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400"} transition-colors`}
                                       >
                                         {article.title}
                                       </h3>
                                       <div
                                         className={`flex items-center gap-2 text-sm ${article.cover ? "text-white/80" : "text-gray-500 dark:text-gray-400"}`}
                                       >
-                                        <Calendar className="w-3.5 h-3.5" />
+                                        <Calendar className="w-4 h-4" />
                                         <span>{article.date}</span>
                                       </div>
                                     </div>

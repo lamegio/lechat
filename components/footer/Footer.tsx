@@ -1,60 +1,15 @@
 import Link from "next/link";
-import Image from "next/image";
 import React from "react";
-import { FaGithub, FaTelegram } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
-import { MdEmail } from "react-icons/md";
 import { GiCat } from "react-icons/gi";
 import { SiNextdotjs } from "react-icons/si";
-import {
-  FooterDesktopDarkToggle,
-  FooterMobileDarkToggle,
-} from "@/components/footer/DarkToggle";
-
-
-const footerInfo = {
-  avatar: "/avatar.png",
-  siteName: "Zhizhi",
-  author: "Zhixiao",
-  quickLinks: [
-    { label: "首页", href: "/" },
-    { label: "博客", href: "/blog" },
-    { label: "关于", href: "/about" },
-    { label: "归档", href: "/archive" },
-  ],
-  social: [
-    {
-      name: "github",
-      url: "https://github.com/yourusername",
-      icon: FaGithub,
-      label: "GitHub",
-    },
-    {
-      name: "email",
-      url: "mailto:your@email.com",
-      icon: MdEmail,
-      label: "Email",
-    },
-    {
-      name: "telegram",
-      url: "https://t.me/yourusername",
-      icon: FaTelegram,
-      label: "Telegram",
-    },
-    {
-      name: "x",
-      url: "https://x.me/yourusername",
-      icon: FaXTwitter,
-      label: "X"
-    },
-  ],
-  rss: "/feed.xml",
-  icp: "萌ICP备20231024号",
-  icpLink: "https://icp.gov.moe/?keyword=20231024",
-  year: new Date().getFullYear(),
-};
+import { FooterMobileDarkToggle } from "@/components/footer/DarkToggle";
+import { useSiteFooter, useSiteInfo } from "@/hooks/useConfigApi";
+import SocialIcon from "@/components/ui/SocialIcon";
 
 export default function Footer() {
+  const footerInfo = useSiteFooter();
+  const siteInfo = useSiteInfo();
+
   return (
     <footer className="w-full backdrop-blur-sm border-t border-solid border-background-color-transparent-1 pb-1 pt-10 select-none cursor-default bg-background-color-transparent-1 px-4">
       <div className="w-full xl:w-xl mx-auto">
@@ -64,16 +19,16 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             {/* 社交媒体 */}
             <div className="flex items-center gap-5">
-              {footerInfo.social.map((item, index) => (
-                <React.Fragment key={item.name}>
+              {siteInfo?.social.map((item, index) => (
+                <React.Fragment key={index}>
                   <Link
-                    href={item.url}
+                    href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-font-color opacity-70 hover:opacity-100 transition-opacity"
-                    aria-label={item.label}
+                    aria-label={item.name}
                   >
-                    <item.icon size={24} />
+                    <SocialIcon type={item.type} size={24} />
                   </Link>
                 </React.Fragment>
               ))}
@@ -85,7 +40,7 @@ export default function Footer() {
                 快速访问
               </p>
               <div className="flex flex-wrap gap-2">
-                {footerInfo.quickLinks.map((link, index) => (
+                {footerInfo?.quickLinks.map((link, index) => (
                   <React.Fragment key={link.href}>
                     {index > 0 && (
                       <span className="text-font-color opacity-30">|</span>
@@ -101,7 +56,7 @@ export default function Footer() {
               </div>
               <span className="text-font-color opacity-30">|</span>
               <Link
-                href={footerInfo.rss}
+                href="/"
                 className="text-font-color opacity-70 hover:opacity-100 transition-opacity"
               >
                 RSS 订阅
@@ -111,19 +66,22 @@ export default function Footer() {
             {/* Powered by 和 Copyright */}
             <div className="flex gap-3 text-sm text-font-color opacity-60">
               <div>
-                © {footerInfo.year} {footerInfo.author}. All rights reserved.
+                © {footerInfo?.startYear} {siteInfo?.author}. All rights
+                reserved.
               </div>
 
               {/* 备案 */}
-              <Link
-                href={footerInfo.icpLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-font-color opacity-70 hover:opacity-100 transition-opacity flex items-center gap-2"
-              >
-                <GiCat size={18} />
-                <span>{footerInfo.icp}</span>
-              </Link>
+              {footerInfo?.moeIcp && (
+                <Link
+                  href="/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-font-color opacity-70 hover:opacity-100 transition-opacity flex items-center gap-2"
+                >
+                  <GiCat size={18} />
+                  <span>{footerInfo?.moeIcp}</span>
+                </Link>
+              )}
               <div className="flex items-center gap-1.5">
                 <span>Powered by</span>
                 <SiNextdotjs size={16} />
@@ -133,24 +91,6 @@ export default function Footer() {
           </div>
 
           {/* 右侧区域 */}
-          <div className="flex flex-col justify-between items-end h-full">
-            {/* 右上角：头像和站点名 */}
-            <div className="flex items-center gap-3">
-              <Image
-                src={footerInfo.avatar}
-                alt={footerInfo.siteName}
-                width={32}
-                height={32}
-                className="rounded-md object-cover"
-              />
-              <span className="text-xl font-medium text-font-color">
-                {footerInfo.siteName}
-              </span>
-            </div>
-
-            {/* 右下角：主题切换器 */}
-            <FooterDesktopDarkToggle />
-          </div>
         </div>
 
         {/* 移动端：上下堆叠 */}
@@ -158,7 +98,7 @@ export default function Footer() {
           {/* 快速访问 */}
           <div className="flex flex-col gap-3">
             <div className="flex flex-wrap gap-5 mx-auto">
-              {footerInfo.quickLinks.map((link) => (
+              {footerInfo?.quickLinks.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
@@ -171,23 +111,23 @@ export default function Footer() {
           </div>
 
           <Link
-            href={footerInfo.rss}
+            href="/"
             className="text-font-color opacity-70 hover:opacity-100 mx-auto transition-opacity"
           >
             RSS 订阅
           </Link>
           {/* 社交媒体 */}
           <div className="flex items-center gap-5 mx-auto">
-            {footerInfo.social.map((item, index) => (
-              <React.Fragment key={item.name}>
+            {siteInfo?.social.map((item, index) => (
+              <React.Fragment key={index}>
                 <Link
-                  href={item.url}
+                  href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-font-color opacity-70 hover:opacity-100 transition-opacity"
-                  aria-label={item.label}
+                  aria-label={item.name}
                 >
-                  <item.icon size={24} />
+                  <SocialIcon type={item.type} size={24} />
                 </Link>
               </React.Fragment>
             ))}
@@ -197,15 +137,15 @@ export default function Footer() {
           <FooterMobileDarkToggle />
 
           {/* RSS和备案 */}
-            <Link
-              href={footerInfo.icpLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mx-auto text-font-color opacity-70 hover:opacity-100 transition-opacity flex items-center gap-2"
-            >
-              <GiCat size={18} />
-              <span>{footerInfo.icp}</span>
-            </Link>
+          <Link
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mx-auto text-font-color opacity-70 hover:opacity-100 transition-opacity flex items-center gap-2"
+          >
+            <GiCat size={18} />
+            <span>{footerInfo?.moeIcp}</span>
+          </Link>
 
           {/* Powered by 和 Copyright */}
           <div className="flex flex-col gap-2 text-sm text-font-color opacity-60 text-center">
@@ -215,7 +155,7 @@ export default function Footer() {
               <span>Next.js</span>
             </div>
             <div>
-              © {footerInfo.year} {footerInfo.author}. All rights reserved.
+              © {footerInfo?.startYear} {siteInfo?.author}. All rights reserved.
             </div>
           </div>
         </div>

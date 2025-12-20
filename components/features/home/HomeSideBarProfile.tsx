@@ -6,7 +6,8 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useState, useRef, useMemo } from "react";
 import confetti from "canvas-confetti";
 import HomeSideBarBox from "@/components/features/home/SideBarBox";
-import { FiGithub, FiMail, FiTwitter } from "react-icons/fi";
+import SocialIcon from "@/components/ui/SocialIcon";
+import { useSiteInfo } from "@/hooks/useConfigApi";
 
 export default function HomeSideBarProfile() {
   const [isHovered, setIsHovered] = useState(false);
@@ -77,24 +78,7 @@ export default function HomeSideBarProfile() {
     }, 100);
   };
 
-  const siteStat = {
-    nickname: "知晓",
-    bio: "不知晓不知晓",
-    adminAvatarImageUrl: "/avatar.png",
-    statusEmoji: "🎉",
-    statusText: "开心编码中",
-    stat: [
-      { name: "博客", stat: 21, href: "/article" },
-      { name: "归档", stat: 10, href: "/article/archive" },
-      { name: "分类", stat: 5, href: "/article/category" },
-      { name: "标签", stat: 6, href: "/article/tag" },
-    ],
-    social: [
-      { name: "GitHub", icon: FiGithub, href: "https://github.com" },
-      { name: "邮箱", icon: FiMail, href: "mailto:example@example.com" },
-      { name: "Twitter", icon: FiTwitter, href: "https://twitter.com" },
-    ],
-  };
+  const siteInfo = useSiteInfo();
 
   // 使用 useMemo 预计算粒子位置，避免在渲染时调用 Math.random
   const particlePositions = useMemo(() => {
@@ -149,7 +133,7 @@ export default function HomeSideBarProfile() {
               whileTap={{ scale: 0.95 }}
             >
               <Image
-                src={siteStat.adminAvatarImageUrl}
+                src={siteInfo?.avatar || "/avatar.png"}
                 alt="avatar"
                 width={120}
                 height={120}
@@ -164,10 +148,10 @@ export default function HomeSideBarProfile() {
               className="absolute bottom-1 right-1 w-7 h-7 rounded-full bg-background-color-transparent-1 shadow-lg flex items-center justify-center border-2 border-theme-color z-20 cursor-pointer"
               whileHover={{ scale: 1.15 }}
               transition={{ duration: 0.2 }}
-              title={siteStat.statusText}
+              title={siteInfo?.statusText}
             >
               <span className="text-base leading-none">
-                {siteStat.statusEmoji}
+                {siteInfo?.statusEmoji}
               </span>
             </motion.div>
 
@@ -207,24 +191,24 @@ export default function HomeSideBarProfile() {
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            {siteStat.nickname}
+            {siteInfo?.nickname}
           </motion.h2>
           <p className="text-sm text-font-color-light-1 leading-relaxed">
-            {siteStat.bio}
+            {siteInfo?.bio}
           </p>
           <motion.p
             className="text-xs text-theme-color flex items-center justify-center gap-1"
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
-            <span>{siteStat.statusEmoji}</span>
-            <span>{siteStat.statusText}</span>
+            <span>{siteInfo?.statusEmoji}</span>
+            <span>{siteInfo?.statusText}</span>
           </motion.p>
         </div>
 
         {/* 统计数据 */}
         <div className="grid grid-cols-4 gap-2 pt-3 border-t border-theme-color/20">
-          {siteStat.stat.map((item, index) => (
+          {siteInfo?.stat.map((item, index) => (
             <Link
               key={item.name}
               href={item.href}
@@ -247,7 +231,7 @@ export default function HomeSideBarProfile() {
 
         {/* 社交链接 */}
         <div className="flex justify-center gap-4 pt-3 border-t border-theme-color/20">
-          {siteStat.social.map((item, index) => (
+          {siteInfo?.social.map((item, index) => (
             <motion.a
               key={item.name}
               href={item.href}
@@ -261,7 +245,7 @@ export default function HomeSideBarProfile() {
               className="p-2 rounded-lg hover:bg-theme-color hover:text-link-hover-font-color transition-colors duration-200"
               aria-label={item.name}
             >
-              <item.icon className="w-5 h-5" />
+              <SocialIcon type={item.type} className="w-5 h-5" />
             </motion.a>
           ))}
         </div>

@@ -2,7 +2,7 @@
 
 import { useTheme } from "next-themes";
 import useMounted from "@/hooks/useMounted";
-import { useSiteBanner } from "@/hooks/useConfigApi";
+import { useSiteBackground } from "@/hooks/useConfigApi";
 
 interface PageBannerProps {
   title: string;
@@ -11,15 +11,15 @@ interface PageBannerProps {
 
 export default function PageBanner({ title, description }: PageBannerProps) {
   const { resolvedTheme } = useTheme();
-  const siteBanner = useSiteBanner();
+  const siteBackground = useSiteBackground();
   const isMounted = useMounted();
 
   if (!isMounted) return null;
 
   const bannerImageUrl =
     resolvedTheme === "dark"
-      ? siteBanner?.backgroundImage.dark
-      : siteBanner?.backgroundImage.light;
+      ? siteBackground?.dark
+      : siteBackground?.light;
 
   // 如果没有背景图，不渲染 banner
   if (!bannerImageUrl) return null;
