@@ -50,18 +50,18 @@ export async function fetcher<T>(
     headers.set("Authorization", `Bearer ${token}`);
   }
 
-  if (process.env.NODE_ENV === "development") {
-    console.log("🚀 Fetcher Request:", fullURL);
-  }
+  // if (process.env.NODE_ENV === "development") {
+  //   console.log("🚀 Fetcher Request:", fullURL);
+  // }
 
   const response = await fetch(fullURL, {
     ...options,
     headers,
   });
 
-  if (process.env.NODE_ENV === "development") {
-    console.log("✅ Fetcher Response:", response.status);
-  }
+  // if (process.env.NODE_ENV === "development") {
+  //   console.log("✅ Fetcher Response:", response.status);
+  // }
 
   if (!response.ok) {
     if (response.status === 401) {

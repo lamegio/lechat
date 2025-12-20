@@ -11,8 +11,9 @@ interface HomeProps {
 }
 
 export default async function Home({ searchParams }: HomeProps) {
-  const page = Number(searchParams.page) || 1;
-  const pageSize = Number(searchParams.pageSize) || 4;
+  const resolvedSearchParams = await searchParams;
+  const page = Number(resolvedSearchParams.page) || 1;
+  const pageSize = Number(resolvedSearchParams.pageSize) || 5;
 
   // 服务端预取当前页数据
   const articles = await fetcher<PaginatedData<ArticleListItem>>(

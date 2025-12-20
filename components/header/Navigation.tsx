@@ -1,22 +1,122 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  FiFileText,
+  FiInfo,
+  FiLink,
+  FiMessageSquare,
+  FiArchive,
+  FiFolder,
+  FiTag,
+  FiHome,
+  FiUser,
+  FiActivity,
+  FiHeart,
+} from "react-icons/fi";
+
+interface SubMenuItem {
+  id: number;
+  name: string;
+  path: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+interface NavItem {
+  id: number;
+  name: string;
+  path: string;
+  icon: React.ComponentType<{ className?: string }>;
+  subMenu?: SubMenuItem[];
+}
 
 export default function Navigation() {
-  const navList = [
-    { id: 1, name: "关于", path: '/about' },
-    { id: 2, name: "文章", path: '/article' },
-    { id: 3, name: "链接", path: '/link' },
-    { id: 4, name: "留言", path: '/message' },
-  ]
+  const [hoveredId, setHoveredId] = useState<number | null>(null);
+
+  const navList: NavItem[] = [
+    {
+      id: 1,
+      name: "文章",
+      path: "/article",
+      icon: FiFileText,
+      subMenu: [
+        { id: 11, name: "归档", path: "/archive", icon: FiArchive },
+        { id: 12, name: "分类", path: "/category", icon: FiFolder },
+        { id: 13, name: "标签", path: "/tag", icon: FiTag },
+      ],
+    },
+    {
+      id: 2,
+      name: "关于",
+      path: "/about",
+      icon: FiInfo,
+      subMenu: [
+        { id: 21, name: "本站", path: "/about/site", icon: FiHome },
+        { id: 22, name: "作者", path: "/about/author", icon: FiUser },
+        { id: 23, name: "动态", path: "/about/timeline", icon: FiActivity },
+      ],
+    },
+    {
+      id: 3,
+      name: "链接",
+      path: "/link",
+      icon: FiLink,
+      subMenu: [
+        { id: 31, name: "友情链接", path: "/link/friends", icon: FiHeart },
+      ],
+    },
+    {
+      id: 4,
+      name: "留言",
+      path: "/message",
+      icon: FiMessageSquare,
+    },
+  ];
+
   return (
-    <div className="h-full w-full flex justify-center items-center">
-      {navList.map((item) =>
-        <Link
-          className="hover:bg-theme-color rounded-sm hover:text-link-hover-font-color py-1 px-5 text-xl self-center leading-none"
+    <nav className="hidden lg:flex h-full justify-center items-center gap-2">
+      {navList.map((item) => (
+        <div
           key={item.id}
-          href={item.path}>
-          {item.name}
-        </Link>)
-      }
-    </div>
-  )
+          className="relative h-full flex items-center"
+          onMouseEnter={() => setHoveredId(item.id)}
+          onMouseLeave={() => setHoveredId(null)}
+        >
+          <Link
+            className="flex items-center gap-2 hover:bg-theme-color rounded-sm hover:text-link-hover-font-color py-1 px-5 text-xl leading-none transition-colors duration-200"
+            href={item.path}
+          >
+            <item.icon className="w-5 h-5" />
+            {item.name}
+          </Link>
+
+          {/* 二级菜单 */}
+          <AnimatePresence>
+            {hoveredId === item.id && item.subMenu && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="absolute top-full left-0 bg-background-color-transparent-1 shadow-chat-card-shadow rounded-md border border-theme-color backdrop-blur-sm w-max"
+              >
+                {item.subMenu.map((subItem) => (
+                  <Link
+                    key={subItem.id}
+                    href={subItem.path}
+                    className="flex items-center gap-3 px-3 py-2 hover:bg-theme-color hover:text-link-hover-font-color transition-colors duration-200 text-base first:rounded-t-md last:rounded-b-md"
+                  >
+                    <subItem.icon className="w-4 h-4" />
+                    {subItem.name}
+                  </Link>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      ))}
+    </nav>
+  );
 }

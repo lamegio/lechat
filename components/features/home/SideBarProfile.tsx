@@ -1,5 +1,5 @@
 import Image from "next/image";
-import HomeSideBarBox from "@/components/features/home/SIdeBarBox";
+import HomeSideBarBox from "@/components/features/home/SideBarBox";
 
 export default function HomeSideBarProfile() {
   const siteStat = {

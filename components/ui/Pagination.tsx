@@ -57,18 +57,17 @@ export default function Pagination({
   };
 
   return (
-    <div className="flex items-center justify-center gap-2 py-8">
+    <div className="flex items-center justify-center gap-2 py-8 text-font-color">
       {/* 上一页按钮 */}
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={!canGoPrev || isLoading}
         className="
-          px-4 py-2 rounded-lg font-medium
-          bg-theme-color text-font-color
-          hover:opacity-80 active:scale-95
+          px-2 py-1 h-8 min-w-8 rounded-lg font-medium
+          bg-background-color-transparent-1
+          hover:bg-theme-color active:scale-95 hover:text-link-hover-font-color
           disabled:opacity-40 disabled:cursor-not-allowed
           transition-all duration-200
-          shadow-sm hover:shadow-md
         "
       >
         ←
@@ -81,7 +80,7 @@ export default function Pagination({
             return (
               <span
                 key={`ellipsis-${index}`}
-                className="px-3 py-2 text-font-color opacity-50"
+                className="px-2 py-1 h-8 min-w-8 text-font-color opacity-50"
               >
                 ...
               </span>
@@ -96,14 +95,14 @@ export default function Pagination({
               onClick={() => onPageChange(page as number)}
               disabled={isLoading}
               className={`
-                min-w-[40px] h-[40px] rounded-lg font-medium
-                transition-all duration-200
+                px-2 py-1 h-8 min-w-8 rounded-lg font-medium
+                transition-all duration-200 hover:text-link-hover-font-color
                 ${
                   isActive
-                    ? "bg-theme-color text-font-color scale-110 shadow-lg"
-                    : "bg-theme-color/20 text-font-color hover:bg-theme-color/40 hover:scale-105"
+                    ? "bg-theme-color text-link-hover-font-color"
+                    : "bg-background-color-transparent-1 hover:bg-theme-color"
                 }
-                active:scale-95 disabled:cursor-not-allowed
+                active:disabled:cursor-not-allowed
               `}
             >
               {page}
@@ -116,12 +115,11 @@ export default function Pagination({
         onClick={() => onPageChange(currentPage + 1)}
         disabled={!canGoNext || isLoading}
         className="
-          px-4 py-2 rounded-lg font-medium
-          bg-theme-color text-font-color
-          hover:opacity-80 active:scale-95
+          px-2 py-1 h-8 min-w-8 rounded-lg font-medium
+          bg-background-color-transparent-1
+          hover:bg-theme-color active:scale-95 hover:text-link-hover-font-color
           disabled:opacity-40 disabled:cursor-not-allowed
           transition-all duration-200
-          shadow-sm hover:shadow-md
         "
       >
         →

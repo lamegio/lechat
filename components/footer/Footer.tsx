@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
-import { FaGithub, FaTelegram, FaTelegramPlane } from "react-icons/fa";
+import { FaGithub, FaTelegram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { GiCat } from "react-icons/gi";
 import { SiNextdotjs } from "react-icons/si";
@@ -9,6 +10,7 @@ import {
   FooterDesktopDarkToggle,
   FooterMobileDarkToggle,
 } from "@/components/footer/DarkToggle";
+
 
 const footerInfo = {
   avatar: "/avatar.png",
@@ -38,6 +40,12 @@ const footerInfo = {
       url: "https://t.me/yourusername",
       icon: FaTelegram,
       label: "Telegram",
+    },
+    {
+      name: "x",
+      url: "https://x.me/yourusername",
+      icon: FaXTwitter,
+      label: "X"
     },
   ],
   rss: "/feed.xml",

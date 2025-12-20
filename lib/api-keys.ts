@@ -28,4 +28,10 @@ export const API_KEYS = {
     google: "auth/google",
     me: "auth/me",
   },
+
+  config: {
+    public: (category?: string): string =>
+      `config${category ? `?category=${category}` : ""}`,
+    publicByKey: (key: string): string => `config/${key}`,
+  },
 } as const;

@@ -2,16 +2,21 @@
 
 import { useTheme } from "next-themes";
 import useMounted from "@/hooks/useMounted";
+import { useSiteBanner } from "@/hooks/useConfigApi";
 
 export default function PageBanner() {
   const { resolvedTheme } = useTheme();
+
+  const siteBanner = useSiteBanner();
 
   const isMounted = useMounted();
 
   if (!isMounted) return null;
 
   const bannerImageUrl =
-    resolvedTheme === "dark" ? "/bg-dark.webp" : "/bg-light.png";
+    resolvedTheme === "dark"
+      ? siteBanner?.backgroundImage.dark
+      : siteBanner?.backgroundImage.light;
 
   return (
     <div

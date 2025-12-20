@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import useMounted from "@/hooks/useMounted";
+import { useSiteBackground } from "@/hooks/useConfigApi";
 
 export default function FixedFullScreenBackground() {
   const { resolvedTheme } = useTheme();
   const isMounted = useMounted();
   const [scrollY, setScrollY] = useState(0);
+
+  const siteBackground = useSiteBackground();
 
   useEffect(() => {
     const handleScroll = (): void => {
@@ -22,7 +25,7 @@ export default function FixedFullScreenBackground() {
   if (!isMounted || !resolvedTheme) return null;
 
   const bgImageUrl =
-    resolvedTheme === "dark" ? "/bg-dark.webp" : "/bg-light.png";
+    resolvedTheme === "dark" ? siteBackground?.image.dark : siteBackground?.image.light;
 
   // 滚动阈值：300px 开始模糊，800px 达到最大模糊
   const blurStart = 300;
@@ -48,6 +51,8 @@ export default function FixedFullScreenBackground() {
 
   const blurValue = calculateBlur();
   const opacityValue = calculateOpacity();
+
+  if (!bgImageUrl) { return null}
 
   return (
     <div className="fixed inset-0 -z-50">
