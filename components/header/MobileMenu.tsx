@@ -12,10 +12,6 @@ import {
   FiMessageSquare,
   FiArchive,
   FiFolder,
-  FiTag,
-  FiHome,
-  FiUser,
-  FiActivity,
   FiHeart,
   FiChevronDown,
   FiChevronRight,
@@ -51,36 +47,33 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       path: "/article",
       icon: FiFileText,
       subMenu: [
-        { id: 11, name: "归档", path: "/article/archive", icon: FiArchive },
-        { id: 12, name: "分类", path: "/article/category", icon: FiFolder },
-        { id: 13, name: "标签", path: "/article/tag", icon: FiTag },
-      ],
-    },
-    {
-      id: 2,
-      name: "关于",
-      path: "/about",
-      icon: FiInfo,
-      subMenu: [
-        { id: 21, name: "本站", path: "/about/site", icon: FiHome },
-        { id: 22, name: "作者", path: "/about/author", icon: FiUser },
-        { id: 23, name: "动态", path: "/about/timeline", icon: FiActivity },
+        { id: 11, name: "归档", path: "/archive", icon: FiArchive },
+        { id: 12, name: "分类", path: "/category", icon: FiFolder },
       ],
     },
     {
       id: 3,
-      name: "链接",
-      path: "/link",
+      name: "友链",
+      path: "/friend",
       icon: FiLink,
-      subMenu: [
-        { id: 31, name: "友情链接", path: "/link/friends", icon: FiHeart },
-      ],
     },
     {
       id: 4,
       name: "留言",
       path: "/message",
       icon: FiMessageSquare,
+    },
+    {
+      id: 5,
+      name: "动态",
+      icon: FiInfo,
+      path: "/moment",
+    },
+    {
+      id: 2,
+      name: "关于",
+      path: "/about",
+      icon: FiInfo,
     },
   ];
 
