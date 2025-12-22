@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { PaginatedData } from "@/lib/fetcher";
 import type { MomentItem } from "@/types/moment";
 import { useMoments } from "@/hooks/useMoment";
@@ -15,27 +15,24 @@ export default function MomentPageClient({
   initialData,
 }: MomentPageClientProps) {
   const [page, setPage] = useState(1);
-  const pageSize = 20;
-
-  // 使用 SWR 获取数据，初始数据来自 SSR
-  const { data, isLoading } = useMoments({ page, pageSize });
-
-  // 合并所有已加载的数据
+  const pageSize = 5;
   const [allMoments, setAllMoments] = useState<MomentItem[]>(initialData.list);
 
-  // 当 SWR 返回新数据时，合并到列表中
-  const handleLoadMore = () => {
-    const nextPage = page + 1;
-    setPage(nextPage);
+  const { data, isLoading } = useMoments({ page, pageSize });
 
-    // 等待 SWR 重新验证后，合并数据
-    if (data && data.list.length > 0) {
+  useEffect(() => {
+    if (data && page > 1) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setAllMoments((prev) => {
         const existingIds = new Set(prev.map((m) => m.id));
         const newMoments = data.list.filter((m) => !existingIds.has(m.id));
         return [...prev, ...newMoments];
       });
     }
+  }, [data, page]);
+
+  const handleLoadMore = () => {
+    setPage((prev) => prev + 1);
   };
 
   const currentMeta = data?.meta || initialData.meta;

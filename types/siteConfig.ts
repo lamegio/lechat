@@ -16,10 +16,12 @@ export interface QuickLink {
 }
 
 export interface NavigationMenu {
+  id: string;
   icon: string;
   name: string;
   path: string;
-  order: number;
+  order?: number;
+  subMenu?: NavigationMenu[]; // TODO ???
 }
 
 export interface Stat {
@@ -83,6 +85,13 @@ export interface SiteBackgroundConfig {
  */
 export interface SiteNavigationConfig {
   menus: NavigationMenu[];
+}
+
+/**
+ * 关于页面配置
+ */
+export interface SiteAboutPageConfig {
+  content: string;
 }
 
 // ==================== 其他配置类型 ====================
@@ -150,6 +159,7 @@ export interface SiteFeatureConfig {
 export interface SiteConfig {
   info: SiteInfoConfig;
   footer: SiteFooterConfig;
+  about: SiteAboutPageConfig;
   background: SiteBackgroundConfig;
   navigation: SiteNavigationConfig;
 }

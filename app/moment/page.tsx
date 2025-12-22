@@ -8,12 +8,11 @@ import MomentPageClient from "@/components/features/moment/MomentPageClient";
 
 export default async function MomentPage() {
   const page = 1;
-  const pageSize = 20;
+  const pageSize = 5;
 
   const moments = await fetcher<PaginatedData<MomentItem>>(
     API_KEYS.moments.list({ page, pageSize }),
   );
-  console.log(moments);
 
   return (
     <BaseContainer pageTitle="动态" pageDescription="记录生活的点点滴滴">

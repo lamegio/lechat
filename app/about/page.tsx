@@ -1,22 +1,33 @@
 import BaseContainer from "@/components/container/BaseContainer";
 import PageContentContainer from "@/components/container/PageContentContainer";
 import renderMarkdown from "@/lib/markdownRenderer";
+import { useSiteAboutPage } from "@/hooks/useConfigApi";
+import { fetcher } from "@/lib/fetcher";
+import { API_KEYS } from "@/lib/api-keys";
+import CommentSection from "@/components/features/comment/Comment";
 
 export default async function About() {
-  const aboutContent = getAboutContent();
-  const { html, toc } = await renderMarkdown(aboutContent);
+  // const aboutContent = getAboutContent();
+  // const aboutContent = useSiteAboutPage();
+  const aboutContent = await fetcher<{ content: string }>(
+    API_KEYS.config.publicByKey("site.about"),
+  );
+  const defaultAboutContent = "## 什么都没有";
+  const { html, toc } = await renderMarkdown(
+    aboutContent?.content || defaultAboutContent,
+  );
 
   return (
     <BaseContainer pageTitle="关于" pageDescription="喵喵庙...">
       <PageContentContainer>
         <div dangerouslySetInnerHTML={{ __html: html }}></div>
+        <CommentSection />
       </PageContentContainer>
     </BaseContainer>
   );
 }
 
 function getAboutContent(): string {
-
   return `
 
 # 一级标题 H1

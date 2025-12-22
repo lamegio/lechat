@@ -4,7 +4,7 @@ import { GiCat } from "react-icons/gi";
 import { SiNextdotjs } from "react-icons/si";
 import { FooterMobileDarkToggle } from "@/components/footer/DarkToggle";
 import { useSiteFooter, useSiteInfo } from "@/hooks/useConfigApi";
-import SocialIcon from "@/components/ui/SocialIcon";
+import CommonIcon from "@/components/ui/CommonIcon";
 
 export default function Footer() {
   const footerInfo = useSiteFooter();
@@ -28,7 +28,7 @@ export default function Footer() {
                     className="text-font-color opacity-70 hover:opacity-100 transition-opacity"
                     aria-label={item.name}
                   >
-                    <SocialIcon type={item.type} size={24} />
+                    <CommonIcon type={item.type} size={24} />
                   </Link>
                 </React.Fragment>
               ))}
@@ -127,7 +127,7 @@ export default function Footer() {
                   className="text-font-color opacity-70 hover:opacity-100 transition-opacity"
                   aria-label={item.name}
                 >
-                  <SocialIcon type={item.type} size={24} />
+                  <CommonIcon type={item.type} size={24} />
                 </Link>
               </React.Fragment>
             ))}

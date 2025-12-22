@@ -12,6 +12,7 @@ import type {
   SiteFooterConfig,
   SiteNavigationConfig,
   SiteBackgroundConfig,
+  SiteAboutPageConfig,
 } from "@/types/siteConfig";
 
 interface UseConfigReturn {
@@ -97,6 +98,14 @@ export function useSiteFooter(): SiteFooterConfig | undefined {
 export function useSiteNavigation(): SiteNavigationConfig | undefined {
   const { config } = useConfig();
   return config?.site?.navigation;
+}
+
+/**
+ * 获取关于页面内容
+ */
+export function useSiteAboutPage(): SiteAboutPageConfig | undefined {
+  const { config } = useConfig();
+  return config?.site?.about;
 }
 
 /**

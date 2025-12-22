@@ -4,7 +4,7 @@ import { GiCat } from "react-icons/gi";
 import { SiNextdotjs } from "react-icons/si";
 import { FooterMobileDarkToggle } from "@/components/footer/DarkToggle";
 import { useSiteFooter, useSiteInfo } from "@/hooks/useConfigApi";
-import SocialIcon from "@/components/ui/SocialIcon";
+import CommonIcon from "@/components/ui/CommonIcon";
 
 export default function Footer() {
   const footerInfo = useSiteFooter();
@@ -45,7 +45,7 @@ export default function Footer() {
                     className="text-font-color opacity-70 hover:opacity-100 hover:text-theme-color transition-all"
                     aria-label={item.name}
                   >
-                    <SocialIcon type={item.type} size={22} />
+                    <CommonIcon type={item.type} size={22} />
                   </Link>
                 ))}
             </div>
@@ -101,60 +101,61 @@ export default function Footer() {
           </div>
 
           {/* 右侧：网站统计 */}
-          <div className="flex flex-col gap-4">
-            <h3 className="text-base font-semibold text-font-color mb-2">
-              网站统计
-            </h3>
-            <div className="grid grid-cols-2 gap-3 text-sm">
-              <div className="flex flex-col gap-1">
-                <span className="text-font-color-secondary text-xs">
-                  文章总数
-                </span>
-                <span className="text-font-color font-medium">
-                  {stats.totalArticles}
-                </span>
-              </div>
-              <div className="flex flex-col gap-1">
-                <span className="text-font-color-secondary text-xs">
-                  总访问量
-                </span>
-                <span className="text-font-color font-medium">
-                  {stats.totalViews.toLocaleString()}
-                </span>
-              </div>
-              <div className="flex flex-col gap-1">
-                <span className="text-font-color-secondary text-xs">
-                  今日访问
-                </span>
-                <span className="text-font-color font-medium">
-                  {stats.todayViews}
-                </span>
-              </div>
-              <div className="flex flex-col gap-1">
-                <span className="text-font-color-secondary text-xs">
-                  运行天数
-                </span>
-                <span className="text-font-color font-medium">
-                  {stats.runningDays}
-                </span>
-              </div>
-              <div className="flex flex-col gap-1">
-                <span className="text-font-color-secondary text-xs">
-                  分类数
-                </span>
-                <span className="text-font-color font-medium">
-                  {stats.totalCategories}
-                </span>
-              </div>
-              <div className="flex flex-col gap-1">
-                <span className="text-font-color-secondary text-xs">
-                  标签数
-                </span>
-                <span className="text-font-color font-medium">
-                  {stats.totalTags}
-                </span>
-              </div>
-            </div>
+          <div className="flex flex-col justify-end gap-4">
+            <FooterMobileDarkToggle />
+          {/*  <h3 className="text-base font-semibold text-font-color mb-2">*/}
+          {/*    网站统计*/}
+          {/*  </h3>*/}
+          {/*  <div className="grid grid-cols-2 gap-3 text-sm">*/}
+          {/*    <div className="flex flex-col gap-1">*/}
+          {/*      <span className="text-font-color-secondary text-xs">*/}
+          {/*        文章总数*/}
+          {/*      </span>*/}
+          {/*      <span className="text-font-color font-medium">*/}
+          {/*        {stats.totalArticles}*/}
+          {/*      </span>*/}
+          {/*    </div>*/}
+          {/*    <div className="flex flex-col gap-1">*/}
+          {/*      <span className="text-font-color-secondary text-xs">*/}
+          {/*        总访问量*/}
+          {/*      </span>*/}
+          {/*      <span className="text-font-color font-medium">*/}
+          {/*        {stats.totalViews.toLocaleString()}*/}
+          {/*      </span>*/}
+          {/*    </div>*/}
+          {/*    <div className="flex flex-col gap-1">*/}
+          {/*      <span className="text-font-color-secondary text-xs">*/}
+          {/*        今日访问*/}
+          {/*      </span>*/}
+          {/*      <span className="text-font-color font-medium">*/}
+          {/*        {stats.todayViews}*/}
+          {/*      </span>*/}
+          {/*    </div>*/}
+          {/*    <div className="flex flex-col gap-1">*/}
+          {/*      <span className="text-font-color-secondary text-xs">*/}
+          {/*        运行天数*/}
+          {/*      </span>*/}
+          {/*      <span className="text-font-color font-medium">*/}
+          {/*        {stats.runningDays}*/}
+          {/*      </span>*/}
+          {/*    </div>*/}
+          {/*    <div className="flex flex-col gap-1">*/}
+          {/*      <span className="text-font-color-secondary text-xs">*/}
+          {/*        分类数*/}
+          {/*      </span>*/}
+          {/*      <span className="text-font-color font-medium">*/}
+          {/*        {stats.totalCategories}*/}
+          {/*      </span>*/}
+          {/*    </div>*/}
+          {/*    <div className="flex flex-col gap-1">*/}
+          {/*      <span className="text-font-color-secondary text-xs">*/}
+          {/*        标签数*/}
+          {/*      </span>*/}
+          {/*      <span className="text-font-color font-medium">*/}
+          {/*        {stats.totalTags}*/}
+          {/*      </span>*/}
+          {/*    </div>*/}
+          {/*  </div>*/}
           </div>
         </div>
 
@@ -174,7 +175,7 @@ export default function Footer() {
                   className="text-font-color opacity-70 hover:opacity-100 transition-opacity"
                   aria-label={item.name}
                 >
-                  <SocialIcon type={item.type} size={24} />
+                  <CommonIcon type={item.type} size={24} />
                 </Link>
               ))}
           </div>
@@ -204,26 +205,26 @@ export default function Footer() {
           </div>
 
           {/* 网站统计 */}
-          <div className="grid grid-cols-3 gap-4 text-center py-4 border-y border-gray-300/20 dark:border-gray-600/20">
-            <div className="flex flex-col gap-1">
-              <span className="text-xs text-font-color-secondary">文章</span>
-              <span className="text-base font-medium text-font-color">
-                {stats.totalArticles}
-              </span>
-            </div>
-            <div className="flex flex-col gap-1">
-              <span className="text-xs text-font-color-secondary">访问</span>
-              <span className="text-base font-medium text-font-color">
-                {stats.totalViews.toLocaleString()}
-              </span>
-            </div>
-            <div className="flex flex-col gap-1">
-              <span className="text-xs text-font-color-secondary">运行</span>
-              <span className="text-base font-medium text-font-color">
-                {stats.runningDays}天
-              </span>
-            </div>
-          </div>
+          {/*<div className="grid grid-cols-3 gap-4 text-center py-4 border-y border-gray-300/20 dark:border-gray-600/20">*/}
+          {/*  <div className="flex flex-col gap-1">*/}
+          {/*    <span className="text-xs text-font-color-secondary">文章</span>*/}
+          {/*    <span className="text-base font-medium text-font-color">*/}
+          {/*      {stats.totalArticles}*/}
+          {/*    </span>*/}
+          {/*  </div>*/}
+          {/*  <div className="flex flex-col gap-1">*/}
+          {/*    <span className="text-xs text-font-color-secondary">访问</span>*/}
+          {/*    <span className="text-base font-medium text-font-color">*/}
+          {/*      {stats.totalViews.toLocaleString()}*/}
+          {/*    </span>*/}
+          {/*  </div>*/}
+          {/*  <div className="flex flex-col gap-1">*/}
+          {/*    <span className="text-xs text-font-color-secondary">运行</span>*/}
+          {/*    <span className="text-base font-medium text-font-color">*/}
+          {/*      {stats.runningDays}天*/}
+          {/*    </span>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
 
           {/* 主题切换器 */}
           <FooterMobileDarkToggle />

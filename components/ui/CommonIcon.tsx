@@ -1,4 +1,3 @@
-// components/SocialIcon.tsx
 import {
   FiGithub,
   FiMail,
@@ -8,6 +7,11 @@ import {
   FiInstagram,
   FiYoutube,
   FiGlobe,
+  FiFileText,
+  FiInfo,
+  FiLink,
+  FiMessageSquare,
+  FiArchive, FiFolder,
 } from "react-icons/fi";
 import {
   SiWechat,
@@ -19,14 +23,15 @@ import {
   SiReddit,
   SiMedium,
 } from "react-icons/si";
+import React from "react";
 
-interface SocialIconProps {
+interface CommonIconProps {
   type: string;
   size?: number;
   className?: string;
 }
 
-const SocialIcon: React.FC<SocialIconProps> = ({
+const CommonIcon: React.FC<CommonIconProps> = ({
   type,
   size,
   className = "w-5 h-5",
@@ -48,6 +53,14 @@ const SocialIcon: React.FC<SocialIconProps> = ({
     discord: SiDiscord,
     reddit: SiReddit,
     medium: SiMedium,
+    // Navigation
+    article: FiFileText,
+    about: FiInfo,
+    friend: FiLink,
+    message: FiMessageSquare,
+    archive: FiArchive,
+    category: FiFolder,
+    moment: FiInfo,
   };
 
   const Icon = iconMap[type.toLowerCase()] || FiGlobe;
@@ -55,4 +68,4 @@ const SocialIcon: React.FC<SocialIconProps> = ({
   return <Icon size={size} className={className} />;
 };
 
-export default SocialIcon;
+export default CommonIcon;

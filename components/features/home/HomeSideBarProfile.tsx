@@ -6,7 +6,7 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useState, useRef, useMemo } from "react";
 import confetti from "canvas-confetti";
 import HomeSideBarBox from "@/components/features/home/SideBarBox";
-import SocialIcon from "@/components/ui/SocialIcon";
+import CommonIcon from "@/components/ui/CommonIcon";
 import { useSiteInfo } from "@/hooks/useConfigApi";
 
 export default function HomeSideBarProfile() {
@@ -245,7 +245,7 @@ export default function HomeSideBarProfile() {
               className="p-2 rounded-lg hover:bg-theme-color hover:text-link-hover-font-color transition-colors duration-200"
               aria-label={item.name}
             >
-              <SocialIcon type={item.type} className="w-5 h-5" />
+              <CommonIcon type={item.type} className="w-5 h-5" />
             </motion.a>
           ))}
         </div>

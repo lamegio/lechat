@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 interface Article {
   id: string;
@@ -103,8 +105,39 @@ const archiveData: YearGroup[] = [
 ];
 
 export default function ArchiveList() {
+  // 年份折叠状态：默认全部展开
+  const [expandedYears, setExpandedYears] = useState<Set<string>>(
+    new Set(archiveData.map((item) => item.year)),
+  );
+
+  // 月份折叠状态：默认全部折叠
+  const [expandedMonths, setExpandedMonths] = useState<Set<string>>(new Set());
+
+  const toggleYear = (year: string) => {
+    setExpandedYears((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(year)) {
+        newSet.delete(year);
+      } else {
+        newSet.add(year);
+      }
+      return newSet;
+    });
+  };
+
+  const toggleMonth = (yearMonth: string) => {
+    setExpandedMonths((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(yearMonth)) {
+        newSet.delete(yearMonth);
+      } else {
+        newSet.add(yearMonth);
+      }
+      return newSet;
+    });
+  };
   return (
-    <div className="space-y-10">
+    <div className="space-y-6">
       {archiveData.map((yearGroup, yearIndex) => (
         <motion.div
           key={yearGroup.year}
@@ -112,63 +145,128 @@ export default function ArchiveList() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: yearIndex * 0.1, duration: 0.4 }}
         >
-          {/* 年份标题 */}
-          <div className="flex items-center gap-4 mb-4">
-            <h2 className="text-3xl font-bold text-font-color">
-              {yearGroup.year}
-            </h2>
-            <span className="text-sm text-font-color-secondary">
-              共 {yearGroup.total} 篇
-            </span>
-          </div>
+          {/* 年份标题 - 可点击折叠 */}
+          <button
+            onClick={() => toggleYear(yearGroup.year)}
+            className="flex items-center justify-between w-full text-left group mb-2 py-1"
+          >
+            <div className="flex items-baseline gap-3">
+              <span className="text-2xl font-bold text-font-color group-hover:text-theme-color transition-colors">
+                {yearGroup.year}
+              </span>
+              <span className="text-sm text-font-color-secondary/70 font-medium">
+                共 {yearGroup.total} 篇
+              </span>
+            </div>
+            <svg
+              className={`w-5 h-5 text-font-color-secondary/50 transition-transform duration-200 ${
+                expandedYears.has(yearGroup.year) ? "rotate-180" : "rotate-0"
+              }`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
 
-          {/* 年份下虚线分割 */}
-          <div className="border-t border-dashed border-gray-300/30 dark:border-gray-600/30 mb-6" />
+          {/* 年份内容 */}
+          <AnimatePresence>
+            {expandedYears.has(yearGroup.year) && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="overflow-hidden"
+              >
+                {/* 月份分组 */}
+                <div className="space-y-2 ml-4 mt-2">
+                  {yearGroup.months.map((monthGroup, monthIndex) => {
+                    const monthKey = `${yearGroup.year}-${monthGroup.month}`;
+                    const isMonthExpanded = expandedMonths.has(monthKey);
 
-          {/* 月份分组 */}
-          <div className="space-y-5 ml-4">
-            {yearGroup.months.map((monthGroup, monthIndex) => (
-              <div key={monthIndex}>
-                {/* 月份标题 */}
-                <h3 className="text-base font-semibold text-font-color mb-3 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-theme-color" />
-                  {monthGroup.month}
-                </h3>
+                    return (
+                      <div key={monthIndex}>
+                        {/* 月份标题 - 可点击折叠 */}
+                        <button
+                          onClick={() => toggleMonth(monthKey)}
+                          className="flex items-center justify-between w-full text-left group/month py-1.5"
+                        >
+                          <div className="flex items-baseline gap-2.5">
+                            <span className="text-base font-semibold text-font-color group-hover/month:text-theme-color transition-colors">
+                              {monthGroup.month}
+                            </span>
+                            <span className="text-sm text-font-color-secondary/60">
+                              {monthGroup.articles.length} 篇
+                            </span>
+                          </div>
+                          <svg
+                            className={`w-4 h-4 text-font-color-secondary/50 transition-transform duration-200 ${
+                              isMonthExpanded ? "rotate-180" : "rotate-0"
+                            }`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2.5}
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </svg>
+                        </button>
 
-                {/* 文章列表 */}
-                <div className="space-y-1 ml-6">
-                  {monthGroup.articles.map((article) => (
-                    <Link
-                      key={article.id}
-                      href={`/article/${article.slug}`}
-                      className="group flex items-center gap-4 py-2 px-4 rounded-lg hover:bg-background-color-card transition-colors duration-200 border border-transparent hover:border-gray-300/40 hover:dark:border-gray-600/40"
-                    >
-                      {/* 日期 */}
-                      <div className="shrink-0 w-10 text-center">
-                        <span className="text-xl font-bold text-font-color-secondary/60 group-hover:text-theme-color transition-colors">
-                          {article.day}
-                        </span>
+                        {/* 月份文章列表 */}
+                        <AnimatePresence>
+                          {isMonthExpanded && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="overflow-hidden"
+                            >
+                              <div className="space-y-0 ml-5 mt-1">
+                                {monthGroup.articles.map((article) => (
+                                  <Link
+                                    key={article.id}
+                                    href={`/article/${article.slug}`}
+                                    className="group/article flex items-center gap-3 py-1.5 px-2 rounded hover:bg-background-color-card transition-all duration-150"
+                                  >
+                                    {/* 日期 */}
+                                    <span className="shrink-0 w-7 text-sm font-semibold text-font-color-secondary/60 group-hover/article:text-theme-color transition-colors">
+                                      {article.day}
+                                    </span>
+
+                                    {/* 标题 */}
+                                    <span className="flex-1 min-w-0 text-base text-font-color group-hover/article:text-theme-color transition-colors truncate">
+                                      {article.title}
+                                    </span>
+
+                                    {/* 分类标签 */}
+                                    <span className="shrink-0 text-sm px-2 py-0.5 rounded bg-gray-200/40 dark:bg-gray-700/40 text-font-color-secondary/70">
+                                      {article.category}
+                                    </span>
+                                  </Link>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
-
-                      {/* 标题和分类 */}
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-font-color font-medium group-hover:text-theme-color transition-colors truncate">
-                          {article.title}
-                        </h4>
-                      </div>
-
-                      {/* 分类标签 */}
-                      <div className="shrink-0">
-                        <span className="text-xs px-2 py-1 rounded bg-gray-200/50 dark:bg-gray-700/50 text-font-color-secondary">
-                          {article.category}
-                        </span>
-                      </div>
-                    </Link>
-                  ))}
+                    );
+                  })}
                 </div>
-              </div>
-            ))}
-          </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       ))}
     </div>

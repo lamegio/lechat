@@ -8,6 +8,7 @@ import Navigation from "@/components/header/Navigation";
 import MobileMenu from "@/components/header/MobileMenu";
 import SearchOverlay from "@/components/header/SearchOverlay";
 import useScrollDirection from "@/hooks/useScrollDirection";
+import { useSiteNavigation } from "@/hooks/useConfigApi";
 
 export default function Header() {
   const isVisible = useScrollDirection();
@@ -44,6 +45,7 @@ export default function Header() {
   const shouldHide = scrollY > HIDE_THRESHOLD && !isVisible;
   const showCardBg = scrollY > BG_CHANGE_THRESHOLD;
 
+  const siteNav = useSiteNavigation();
   return (
     <>
       <motion.header
@@ -67,7 +69,7 @@ export default function Header() {
       >
         <div className="w-full xl:w-xl mx-auto flex justify-between items-center h-full">
           <Logo />
-          <Navigation />
+          {siteNav?.menus && <Navigation siteNav={siteNav.menus} />}
           <CommonActions
             onSearchOpen={() => setIsSearchOpen(true)}
             onMenuOpen={() => setIsMobileMenuOpen(true)}

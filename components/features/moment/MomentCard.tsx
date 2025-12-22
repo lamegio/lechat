@@ -71,7 +71,7 @@ export default function MomentCard({ moment, index }: MomentCardProps) {
           ) : (
             <>
               {/* 文字内容 */}
-              <div className="text-font-color-secondary text-sm leading-relaxed whitespace-pre-wrap break-words">
+              <div className="text-font-color-secondary text-sm leading-relaxed whitespace-pre-wrap wrap-break-word">
                 {moment.content}
               </div>
 
