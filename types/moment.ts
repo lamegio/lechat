@@ -1,6 +1,5 @@
 export interface MomentItem {
   id: string;
-  authorId: string;
   authorName: string;
   authorAvatar: string;
   content: string;

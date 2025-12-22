@@ -34,10 +34,11 @@ export default function MomentCard({ moment, index }: MomentCardProps) {
       className="flex gap-4"
     >
       {/* 左侧头像 - 改为圆角矩形 */}
-      <div className="flex-shrink-0">
+      <div className="shrink-0">
         <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-700 ring-2 ring-gray-200/50 dark:ring-gray-600/50">
           <Image
-            src={moment.authorAvatar}
+            // src={moment.authorAvatar}
+            src="/avatar.png"
             alt={moment.authorName}
             width={48}
             height={48}
@@ -76,7 +77,10 @@ export default function MomentCard({ moment, index }: MomentCardProps) {
 
               {/* 图片列表 */}
               {moment.images && moment.images.length > 0 && (
-                <MomentImage images={moment.images} />
+                // <MomentImage images={moment.images} />
+                <MomentImage
+                  images={["/bg-light.png", "/bg-light.png", "/bg-light.png"]}
+                />
               )}
             </>
           )}
