@@ -34,4 +34,27 @@ export const API_KEYS = {
       `config${category ? `?category=${category}` : ""}`,
     publicByKey: (key: string): string => `config/${key}`,
   },
+
+  friends: {
+    list: (category?: string): string =>
+      `friends${category ? `?category=${category}` : ""}`,
+  },
+
+  moments: {
+    list: (params?: Record<string, string | number | boolean>): string => {
+      const searchParams = new URLSearchParams();
+      if (params) {
+        Object.entries(params).forEach(([key, value]) => {
+          if (value !== undefined && value !== null) {
+            searchParams.append(key, String(value));
+          }
+        });
+      }
+      const query = searchParams.toString();
+      return `moment/list${query ? `?${query}` : ""}`;
+    },
+    byId: (id: string): string => `moment/${id}`,
+    like: (id: string): string => `moment/${id}/like`,
+    unlike: (id: string): string => `moment/${id}/unlike`,
+  },
 } as const;

@@ -54,7 +54,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     {
       id: 3,
       name: "友链",
-      path: "/friend",
+      path: "/friend.ts",
       icon: FiLink,
     },
     {

@@ -49,7 +49,7 @@ export default function Navigation() {
     {
       id: 3,
       name: "友链",
-      path: "/friend",
+      path: "/friend.ts",
       icon: FiLink,
     },
     {
