@@ -24,9 +24,9 @@ interface UseSessionReturn {
 const MOCK_SESSION: Session = {
   user: {
     id: "123e4567-e89b-12d3-a456-426614174000",
-    name: "测试用户",
-    email: "test@example.com",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=test",
+    name: "ZhiXiao",
+    email: "ZhiXiao@example.com",
+    image: "/avatar.png",
   },
   expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
 };
@@ -58,7 +58,11 @@ export function useSession(): UseSessionReturn {
     return (): void => {
       clearTimeout(timer);
     };
+
+    // TODO remove
+    setSession(MOCK_SESSION);
   }, []);
+
 
   const update = async (data?: unknown): Promise<Session | null> => {
     // TODO: 实现session更新逻辑

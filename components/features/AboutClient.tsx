@@ -2,6 +2,8 @@
 import BaseContainer from "@/components/container/BaseContainer";
 import PageContentContainer from "@/components/container/PageContentContainer";
 import { CommentSection } from "@/components/features/comment/CommentSection";
+import { CommentSection111 } from "@/components/features/comment/CommentSection111";
+import { CommentType } from "@/types/comment";
 
 interface Props {
   initialData: {
@@ -31,7 +33,8 @@ export default function AboutClient({ initialData }: Props) {
             __html: initialData?.aboutContent || defaultAboutContent,
           }}
         ></div>
-        <CommentSection />
+        <CommentSection type={CommentType.ABOUT} />
+        {/*<CommentSection111 type={CommentType.ABOUT} />*/}
       </PageContentContainer>
     </BaseContainer>
   );

@@ -57,4 +57,24 @@ export const API_KEYS = {
     like: (id: string): string => `moment/${id}/like`,
     unlike: (id: string): string => `moment/${id}/unlike`,
   },
+
+  comments: {
+    list: (params?: Record<string, string | number | boolean>): string => {
+      const searchParams = new URLSearchParams();
+      if (params) {
+        Object.entries(params).forEach(([key, value]) => {
+          if (value !== undefined && value !== null) {
+            searchParams.append(key, String(value));
+          }
+        });
+      }
+      const query = searchParams.toString();
+      return `comment/list${query ? `?${query}` : ""}`;
+    },
+    byId: (id: string): string => `comment/${id}`,
+    create: "comment/create",
+    like: (id: string): string => `comment/${id}/like`,
+    unlike: (id: string): string => `comment/${id}/unlike`,
+    delete: (id: string): string => `comment/${id}`,
+  },
 } as const;

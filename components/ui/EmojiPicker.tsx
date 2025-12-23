@@ -48,7 +48,7 @@ export function EmojiPicker({ onEmojiSelect }: EmojiPickerProps) {
       </button>
 
       {isOpen && (
-        <div className="absolute bottom-full left-0 mb-2 z-50">
+        <div className="absolute top-full left-0 mt-2 z-50">
           <EmojiPickerReact
             onEmojiClick={handleEmojiClick}
             width={320}
