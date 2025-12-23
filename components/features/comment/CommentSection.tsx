@@ -12,6 +12,7 @@ import {
   UserRole,
 } from "@/types/comment";
 import { motion } from "framer-motion";
+import useMounted from "@/hooks/useMounted";
 
 interface CommentSectionProps {
   type: CommentType;
@@ -105,6 +106,9 @@ export function CommentSection({ type, articleId }: CommentSectionProps) {
     setPage((prev) => prev + 1);
   };
 
+  const isMounted = useMounted();
+  if (!isMounted) {return null}
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -138,7 +142,7 @@ export function CommentSection({ type, articleId }: CommentSectionProps) {
           articleId={articleId}
           // TODO fix
           // @ts-ignore
-          session={session?.user}
+          session={session}
           onReply={handleReply}
           onLike={handleLike}
           onLoadMore={data?.hasMore ? handleLoadMore : undefined}

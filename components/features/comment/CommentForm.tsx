@@ -17,8 +17,8 @@ const guestCommentSchema = z.object({
     .min(1, "评论内容不能为空")
     .max(2000, "评论内容不能超过2000字"),
   guestName: z.string().min(1, "昵称不能为空").max(50, "昵称不能超过50字"),
-  guestEmail: z.string().email("请输入有效的邮箱地址"),
-  guestWebsite: z.string().url("请输入有效的网址").optional().or(z.literal("")),
+  guestEmail: z.email("请输入有效的邮箱地址"),
+  guestWebsite: z.url("请输入有效的网址").optional().or(z.literal("")),
 });
 
 const authCommentSchema = z.object({

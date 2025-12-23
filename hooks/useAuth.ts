@@ -43,7 +43,7 @@ export function useSession(): UseSessionReturn {
 
   useEffect(() => {
     // 模拟异步加载
-    const timer = setTimeout(() => {
+    // const timer = setTimeout(() => {
       // TODO: 改为真实NextAuth session获取
 
       // 测试：已登录状态
@@ -53,14 +53,12 @@ export function useSession(): UseSessionReturn {
       // 测试：未登录状态
       // setSession(null);
       // setStatus("unauthenticated");
-    }, 500);
+    // }, 500);
+    //
+    // return (): void => {
+    //   clearTimeout(timer);
+    // };
 
-    return (): void => {
-      clearTimeout(timer);
-    };
-
-    // TODO remove
-    setSession(MOCK_SESSION);
   }, []);
 
 
