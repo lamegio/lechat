@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { FaGithub, FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 import { CommentMeta } from "./CommentMeta";
 import { CommentForm } from "./CommentForm";
 import GoogleIcon from "@/components/ui/GoogleIcon";
@@ -11,7 +11,7 @@ import type {
   CommentType,
 } from "@/types/comment";
 import type { Session } from "@/types/auth";
-import { LoginProvider, UserRole } from "@/types/comment";
+import { LoginProvider } from "@/types/comment";
 import { formatLocalDateTime } from "@/lib/date";
 
 interface CommentItemProps {
@@ -45,11 +45,6 @@ export function CommentItem({
   const [isLiking, setIsLiking] = useState(false);
 
   const isAuthenticated = !!session;
-  const authorName = comment.author?.name || comment.guestName || "匿名用户";
-  const authorAvatar = comment.author?.avatar || "/avatar.png";
-  const authorRole = comment.author?.role || UserRole.GUEST;
-  const loginProvider = comment.author?.loginProvider;
-
   const handleReply = async (data: unknown): Promise<void> => {
     const formData = data as {
       content: string;
@@ -94,14 +89,14 @@ export function CommentItem({
       {/* 头像 */}
       <div className="relative w-12 h-12 shrink-0">
         <img
-          src={authorAvatar}
-          alt={authorName}
+          src={comment.avatar}
+          alt={comment.displayName}
           className="w-full h-full rounded-full object-cover"
         />
         {/* 登录方式图标 */}
-        {loginProvider && (
+        {comment.loginProvider && (
           <span className="absolute bottom-0 right-0 w-4 h-4 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm border border-gray-200/50">
-            {loginProvider === LoginProvider.GITHUB ? (
+            {comment.loginProvider === LoginProvider.GITHUB ? (
               <FaGithub size={9} className="text-gray-700" />
             ) : (
               <GoogleIcon />
@@ -116,11 +111,11 @@ export function CommentItem({
         <div className="flex items-center justify-between mb-1">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-[15px] font-medium text-gray-900">
-              {authorName}
+              {comment.displayName}
             </span>
-            {authorRole === UserRole.ADMIN && (
+            {comment.isAdmin && (
               <span className="px-2 py-0.5 text-xs bg-red-50 text-red-600 rounded">
-                管理员
+                {comment.displayName}
               </span>
             )}
             <span className="text-xs text-gray-400">
@@ -167,7 +162,7 @@ export function CommentItem({
               type={type}
               articleId={articleId}
               parentId={comment.id}
-              replyToName={authorName}
+              replyToName={comment.displayName}
               session={session}
               onSubmit={handleReply}
               onCancel={() => setShowReplyForm(false)}

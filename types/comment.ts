@@ -3,7 +3,6 @@ export enum CommentType {
   ABOUT = 1, // about 页面
   CONTACT = 2, // contact 页面
   GUESTBOOK = 3, // 留言板
-  // ... 可以继续扩展其他页面
 }
 
 // 评论状态
@@ -19,51 +18,20 @@ export enum LoginProvider {
   GOOGLE = "google",
 }
 
-// 用户角色
-export enum UserRole {
-  ADMIN = "admin",
-  USER = "user",
-  GUEST = "guest",
-}
-
-// 作者信息
-export interface Author {
-  id: string;
-  name: string;
-  email: string;
-  avatar?: string;
-  role: UserRole;
-  loginProvider?: LoginProvider;
-}
-
 // 评论项
 export interface CommentItem {
   id: string;
   content: string;
-  status: CommentStatus;
-  type: CommentType;
+  device?: string;
+  avatar?: string;
+  isLiked?: boolean;
+  isAdmin?: boolean;
   createdAt: string;
   likeCount: number;
-  isLiked?: boolean;
-
-  // 作者信息（登录用户）
-  author?: Author;
-  authorId?: string;
-
-  // 访客信息（匿名用户）
-  guestName?: string;
-  guestEmail?: string;
-
-  // 关联信息
-  articleId?: string;
-  parentId?: string;
+  displayName: string;
   replyToName?: string; // @谁
-
-  // 扩展信息
-  device?: string;
+  loginProvider?: string;
   location?: string;
-
-  // 回复列表
   replies?: CommentItem[];
 }
 
@@ -74,19 +42,6 @@ export interface CommentListParams {
   page?: number;
   pageSize?: number;
   status?: CommentStatus;
-}
-
-// 提交评论表单数据（匿名用户）
-export interface GuestCommentFormData {
-  content: string;
-  guestName: string;
-  guestEmail: string;
-  guestWebsite?: string;
-}
-
-// 提交评论表单数据（登录用户）
-export interface AuthCommentFormData {
-  content: string;
 }
 
 // 提交评论 API 请求体

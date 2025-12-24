@@ -6,10 +6,8 @@ import { CommentList } from "./CommentList";
 import { useCommentMutations } from "@/hooks/useCommentMutation";
 import { useSession } from "@/hooks/useAuth";
 import {
-  CommentStatus,
   CommentType,
   CreateCommentRequest,
-  UserRole,
 } from "@/types/comment";
 import { motion } from "framer-motion";
 import useMounted from "@/hooks/useMounted";
@@ -133,15 +131,10 @@ export function CommentSection({ type, articleId }: CommentSectionProps) {
         </div>
       ) : (
         <CommentList
-          // TODO ??
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
           comments={data?.items || []}
           total={data?.total || 0}
           type={type}
           articleId={articleId}
-          // TODO fix
-          // @ts-ignore
           session={session}
           onReply={handleReply}
           onLike={handleLike}
@@ -164,24 +157,13 @@ function getData() {
       {
         id: "550e8400-e29b-41d4-a716-446655440001",
         content: "欢迎大家在这里留言交流！😊 有任何问题都可以问我哦～",
-        status: CommentStatus.APPROVED,
-        type: 0, // ARTICLE
         createdAt: "2025-12-20T15:15:00Z",
         likeCount: 5,
         isLiked: false,
         authorId: "admin-001",
-        author: {
-          id: "admin-001",
-          name: "小橘猫",
-          email: "admin@example.com",
-          avatar: "/avatar.png",
-          role: UserRole.ADMIN,
-          loginProvider: "github",
-        },
-        articleId: "article-123",
-        parentId: null,
-        guestName: null,
-        guestEmail: null,
+        displayName: "小橘猫",
+        avatar: "/avatar.png",
+        loginProvider: "github",
         device: "Chrome",
         location: "广东",
         replies: [],
@@ -190,49 +172,26 @@ function getData() {
         id: "550e8400-e29b-41d4-a716-446655440002",
         content:
           "感谢分享这个主题，界面设计真的很漂亮！想问一下这个评论系统支持 **Markdown** 语法吗？",
-        status: CommentStatus.APPROVED,
-        type: 0,
         createdAt: "2025-12-21T10:32:00Z",
         likeCount: 2,
         isLiked: false,
-        authorId: "user-001",
-        author: {
-          id: "user-001",
-          name: "访客A",
-          email: "usera@example.com",
-          avatar: "/avatar.png",
-          role: UserRole.USER,
-          loginProvider: "github",
-        },
+        displayName: "访客A",
+        avatar: "/avatar.png",
+        loginProvider: "github",
         articleId: "article-123",
-        parentId: null,
-        guestName: null,
-        guestEmail: null,
         device: "Safari",
         location: "新加坡",
         replies: [
           {
             id: "550e8400-e29b-41d4-a716-446655440003",
             content: "当然支持啦！你可以使用 **粗体**、*斜体*、`代码` 等语法～",
-            status: CommentStatus.APPROVED,
-            type: 0,
             createdAt: "2025-12-21T14:20:00Z",
             likeCount: 1,
             isLiked: false,
-            authorId: "user-002",
-            author: {
-              id: "user-002",
-              name: "路人B",
-              email: "userb@example.com",
-              avatar: "/avatar.png",
-              role: UserRole.GUEST,
-              loginProvider: "google",
-            },
-            articleId: "article-123",
-            parentId: "550e8400-e29b-41d4-a716-446655440002",
+            displayName: "路人B",
+            avatar: "/avatar.png",
+            loginProvider: "google",
             replyToName: "访客A",
-            guestName: null,
-            guestEmail: null,
             device: "Chrome",
             location: "日本",
             replies: [],
@@ -242,16 +201,10 @@ function getData() {
       {
         id: "550e8400-e29b-41d4-a716-446655440004",
         content: "这个博客写得真不错，已收藏！",
-        status: CommentStatus.APPROVED,
-        type: 0,
         createdAt: "2025-12-22T09:15:00Z",
         likeCount: 0,
         isLiked: false,
-        authorId: null,
-        author: null,
-        guestName: "匿名访客",
-        guestEmail: "guest@example.com",
-        articleId: "article-123",
+        displayName: "匿名访客",
         parentId: null,
         device: "Web",
         location: "美国",
@@ -260,24 +213,12 @@ function getData() {
       {
         id: "550e8400-e29b-41d4-a716-446655440005",
         content: "期待更多精彩内容！💪",
-        status: CommentStatus.APPROVED,
-        type: 1, // PAGE (about)
         createdAt: "2025-12-22T16:30:00Z",
         likeCount: 3,
         isLiked: true,
-        authorId: "user-003",
-        author: {
-          id: "user-003",
-          name: "技术爱好者",
-          email: "tech@example.com",
-          avatar: "/avatar.png",
-          role: UserRole.USER,
-          loginProvider: "github",
-        },
-        articleId: null,
-        parentId: null,
-        guestName: null,
-        guestEmail: null,
+        displayName: "技术爱好者",
+        avatar: "/avatar.png",
+        loginProvider: "github",
         device: "FireFox",
         location: "邯郸",
         replies: [],

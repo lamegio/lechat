@@ -11,28 +11,17 @@ import { CommentPreview } from "./CommentPreview";
 import type { CommentType } from "@/types/comment";
 import type { Session } from "@/types/auth";
 
-const guestCommentSchema = z.object({
+const commentSchema = z.object({
   content: z
     .string()
     .min(1, "评论内容不能为空")
     .max(2000, "评论内容不能超过2000字"),
-  guestName: z.string().min(1, "昵称不能为空").max(50, "昵称不能超过50字"),
-  guestEmail: z.email("请输入有效的邮箱地址"),
-  guestWebsite: z.url("请输入有效的网址").optional().or(z.literal("")),
+  displayName: z.string().min(1, "昵称不能为空").max(50, "昵称不能超过50字"),
+  email: z.email("请输入有效的邮箱地址"),
+  url: z.url("请输入有效的网址").optional().or(z.literal("")),
 });
 
-const authCommentSchema = z.object({
-  content: z
-    .string()
-    .min(1, "评论内容不能为空")
-    .max(2000, "评论内容不能超过2000字"),
-  guestName: z.string(),
-  guestEmail: z.string(),
-  guestWebsite: z.string().optional(),
-});
-
-type GuestFormData = z.infer<typeof guestCommentSchema>;
-type AuthFormData = z.infer<typeof authCommentSchema>;
+type CommentFormData = z.infer<typeof commentSchema>;
 
 interface CommentFormProps {
   type: CommentType;
@@ -40,12 +29,11 @@ interface CommentFormProps {
   parentId?: string;
   replyToName?: string;
   session?: Session | null;
-  onSubmit: (data: GuestFormData | AuthFormData) => Promise<void>;
+  onSubmit: (data: CommentFormData) => Promise<void>;
   onCancel?: () => void;
 }
 
 export function CommentForm({
-  type,
   articleId,
   parentId,
   replyToName,
@@ -57,7 +45,8 @@ export function CommentForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isAuthenticated = !!session;
-  const schema = isAuthenticated ? authCommentSchema : guestCommentSchema;
+  // const schema = isAuthenticated ? authCommentSchema : guestCommentSchema;
+  const schema = commentSchema;
 
   const {
     register,
@@ -66,20 +55,20 @@ export function CommentForm({
     setValue,
     reset,
     formState: { errors },
-  } = useForm<GuestFormData | AuthFormData>({
+  } = useForm<CommentFormData>({
     resolver: zodResolver(schema),
     defaultValues: isAuthenticated
       ? {
           content: "",
-          guestName: session.user.name || "",
-          guestEmail: session.user.email || "",
-          guestWebsite: "",
+          displayName: session.user.name || "",
+          email: session.user.email || "",
+          url: "",
         }
       : {
           content: "",
-          guestName: "",
-          guestEmail: "",
-          guestWebsite: "",
+          displayName: "",
+          email: "",
+          url: "",
         },
   });
 
@@ -91,7 +80,7 @@ export function CommentForm({
   };
 
   const onFormSubmit = async (
-    data: GuestFormData | AuthFormData,
+    data: CommentFormData,
   ): Promise<void> => {
     setIsSubmitting(true);
     try {
@@ -118,13 +107,13 @@ export function CommentForm({
             <input
               type="text"
               placeholder="昵称 *"
-              {...register("guestName")}
+              {...register("displayName")}
               disabled={isAuthenticated}
               className="w-full px-0 py-0.5 text-[15px] border-0 focus:outline-none bg-transparent placeholder:text-gray-400 disabled:text-gray-600"
             />
-            {errors.guestName && (
+            {errors.displayName && (
               <p className="text-xs text-red-500 mt-1">
-                {errors.guestName.message}
+                {errors.displayName.message}
               </p>
             )}
           </div>
@@ -132,13 +121,13 @@ export function CommentForm({
             <input
               type="email"
               placeholder="邮箱 *"
-              {...register("guestEmail")}
+              {...register("email")}
               disabled={isAuthenticated}
               className="w-full px-0 py-0.5 text-[15px] border-0 focus:outline-none bg-transparent placeholder:text-gray-400 disabled:text-gray-600"
             />
-            {errors.guestEmail && (
+            {errors.email && (
               <p className="text-xs text-red-500 mt-1">
-                {errors.guestEmail.message}
+                {errors.email.message}
               </p>
             )}
           </div>
@@ -146,12 +135,12 @@ export function CommentForm({
             <input
               type="url"
               placeholder="网址（可选）"
-              {...register("guestWebsite")}
+              {...register("url")}
               className="w-full px-0 py-0.5 text-[15px] border-0 focus:outline-none bg-transparent placeholder:text-gray-400"
             />
-            {errors.guestWebsite && (
+            {errors.url && (
               <p className="text-xs text-red-500 mt-1">
-                {errors.guestWebsite.message}
+                {errors.url.message}
               </p>
             )}
           </div>
@@ -219,7 +208,7 @@ export function CommentForm({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-5 py-1.5 text-sm bg-[var(--theme-color,#6366f1)] text-white hover:opacity-90 rounded transition-opacity disabled:opacity-50"
+              className="px-5 py-1.5 text-sm bg-(--theme-color,#6366f1) text-white hover:opacity-90 rounded transition-opacity disabled:opacity-50"
             >
               {isSubmitting ? "提交中..." : "提交"}
             </button>
