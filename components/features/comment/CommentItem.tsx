@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { FaGithub } from "react-icons/fa";
+import Image from "next/image";
 import { CommentMeta } from "./CommentMeta";
 import { CommentForm } from "./CommentForm";
 import GoogleIcon from "@/components/ui/GoogleIcon";
@@ -22,11 +23,9 @@ interface CommentItemProps {
   onReply: (
     parentId: string,
     content: string,
-    guestData?: {
-      guestName: string;
-      guestEmail: string;
-      guestWebsite?: string;
-    },
+    displayName: string,
+    email: string,
+    url?: string,
   ) => Promise<void>;
   onLike: (commentId: string) => Promise<void>;
   level?: number;
@@ -45,23 +44,27 @@ export function CommentItem({
   const [isLiking, setIsLiking] = useState(false);
 
   const isAuthenticated = !!session;
-  const handleReply = async (data: unknown): Promise<void> => {
-    const formData = data as {
-      content: string;
-      guestName?: string;
-      guestEmail?: string;
-      guestWebsite?: string;
-    };
-
-    if (isAuthenticated) {
-      await onReply(comment.id, formData.content);
-    } else {
-      await onReply(comment.id, formData.content, {
-        guestName: formData.guestName!,
-        guestEmail: formData.guestEmail!,
-        guestWebsite: formData.guestWebsite,
-      });
-    }
+  const handleReply = async (data: {
+    content: string;
+    displayName: string;
+    email: string;
+    url?: string;
+  }): Promise<void> => {
+    // if (isAuthenticated) {
+    await onReply(
+      comment.id,
+      data.content,
+      data.displayName,
+      data.email,
+      data.url,
+    );
+    // } else {
+    //   await onReply(comment.id, formData.content, {
+    //     displayName: formData.displayName!,
+    //     email: formData.email!,
+    //     url: formData.url,
+    //   });
+    // }
     setShowReplyForm(false);
   };
 
@@ -88,9 +91,11 @@ export function CommentItem({
     >
       {/* 头像 */}
       <div className="relative w-12 h-12 shrink-0">
-        <img
+        <Image
           src={comment.avatar}
           alt={comment.displayName}
+          width={100}
+          height={100}
           className="w-full h-full rounded-full object-cover"
         />
         {/* 登录方式图标 */}

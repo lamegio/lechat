@@ -23,7 +23,7 @@ export interface CommentItem {
   id: string;
   content: string;
   device?: string;
-  avatar?: string;
+  avatar: string;
   isLiked?: boolean;
   isAdmin?: boolean;
   createdAt: string;
@@ -50,9 +50,9 @@ export interface CreateCommentRequest {
   type: CommentType;
   articleId?: string;
   parentId?: string;
-  guestName?: string;
-  guestEmail?: string;
-  userAgent?: string;
+  displayName: string;
+  email: string;
+  url?: string;
 }
 
 // 评论列表响应

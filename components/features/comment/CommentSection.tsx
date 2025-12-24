@@ -5,10 +5,7 @@ import { CommentForm } from "./CommentForm";
 import { CommentList } from "./CommentList";
 import { useCommentMutations } from "@/hooks/useCommentMutation";
 import { useSession } from "@/hooks/useAuth";
-import {
-  CommentType,
-  CreateCommentRequest,
-} from "@/types/comment";
+import { CommentType, CreateCommentRequest } from "@/types/comment";
 import { motion } from "framer-motion";
 import useMounted from "@/hooks/useMounted";
 
@@ -19,7 +16,7 @@ interface CommentSectionProps {
 
 export function CommentSection({ type, articleId }: CommentSectionProps) {
   const { data: session } = useSession();
-  console.log('se: ', session);
+  console.log("se: ", session);
   const [page, setPage] = useState(1);
   const pageSize = 10;
 
@@ -40,20 +37,23 @@ export function CommentSection({ type, articleId }: CommentSectionProps) {
   const handleSubmitComment = async (formData: unknown): Promise<void> => {
     const data = formData as {
       content: string;
-      guestName?: string;
-      guestEmail?: string;
-      guestWebsite?: string;
+      displayName: string;
+      email: string;
+      url?: string;
     };
 
     const request: CreateCommentRequest = {
       content: data.content,
+      displayName: data.displayName,
+      email: data.email,
+      url: data.url,
       type,
       articleId,
     };
 
     if (!session) {
-      request.guestName = data.guestName;
-      request.guestEmail = data.guestEmail;
+      request.displayName = data.displayName;
+      request.email = data.email;
     }
 
     await createComment(request);
@@ -64,22 +64,23 @@ export function CommentSection({ type, articleId }: CommentSectionProps) {
   const handleReply = async (
     parentId: string,
     content: string,
-    guestData?: {
-      guestName: string;
-      guestEmail: string;
-      guestWebsite?: string;
-    },
+    displayName: string,
+    email: string,
+    url?: string,
   ): Promise<void> => {
     const request: CreateCommentRequest = {
       content,
+      displayName,
       type,
       articleId,
       parentId,
+      email,
+      url,
     };
 
-    if (!session && guestData) {
-      request.guestName = guestData.guestName;
-      request.guestEmail = guestData.guestEmail;
+    if (!session) {
+      request.displayName = displayName;
+      request.email = email;
     }
 
     await createComment(request);
@@ -105,7 +106,9 @@ export function CommentSection({ type, articleId }: CommentSectionProps) {
   };
 
   const isMounted = useMounted();
-  if (!isMounted) {return null}
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <motion.div
@@ -161,6 +164,7 @@ function getData() {
         likeCount: 5,
         isLiked: false,
         authorId: "admin-001",
+        idAdmin: false,
         displayName: "小橘猫",
         avatar: "/avatar.png",
         loginProvider: "github",
@@ -175,6 +179,7 @@ function getData() {
         createdAt: "2025-12-21T10:32:00Z",
         likeCount: 2,
         isLiked: false,
+        idAdmin: false,
         displayName: "访客A",
         avatar: "/avatar.png",
         loginProvider: "github",
@@ -188,6 +193,7 @@ function getData() {
             createdAt: "2025-12-21T14:20:00Z",
             likeCount: 1,
             isLiked: false,
+            idAdmin: false,
             displayName: "路人B",
             avatar: "/avatar.png",
             loginProvider: "google",
@@ -203,6 +209,8 @@ function getData() {
         content: "这个博客写得真不错，已收藏！",
         createdAt: "2025-12-22T09:15:00Z",
         likeCount: 0,
+        idAdmin: false,
+        avatar: "/avatar.png",
         isLiked: false,
         displayName: "匿名访客",
         parentId: null,
@@ -215,6 +223,7 @@ function getData() {
         content: "期待更多精彩内容！💪",
         createdAt: "2025-12-22T16:30:00Z",
         likeCount: 3,
+        idAdmin: false,
         isLiked: true,
         displayName: "技术爱好者",
         avatar: "/avatar.png",

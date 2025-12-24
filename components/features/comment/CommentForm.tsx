@@ -34,12 +34,8 @@ interface CommentFormProps {
 }
 
 export function CommentForm({
-  articleId,
-  parentId,
-  replyToName,
   session,
   onSubmit,
-  onCancel,
 }: CommentFormProps) {
   const [showPreview, setShowPreview] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);

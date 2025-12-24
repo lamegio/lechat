@@ -47,8 +47,8 @@ export function useSession(): UseSessionReturn {
       // TODO: 改为真实NextAuth session获取
 
       // 测试：已登录状态
-      setSession(MOCK_SESSION);
-      setStatus("authenticated");
+      // setSession(MOCK_SESSION);
+      // setStatus("authenticated");
 
       // 测试：未登录状态
       // setSession(null);

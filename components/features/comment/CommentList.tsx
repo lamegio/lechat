@@ -17,11 +17,9 @@ interface CommentListProps {
   onReply: (
     parentId: string,
     content: string,
-    guestData?: {
-      guestName: string;
-      guestEmail: string;
-      guestWebsite?: string;
-    },
+    displayName: string,
+    email: string,
+    url?: string,
   ) => Promise<void>;
   onLike: (commentId: string) => Promise<void>;
   onLoadMore?: () => void;
